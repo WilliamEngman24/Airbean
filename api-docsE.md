@@ -32,19 +32,6 @@ Servern startar på `http://localhost:3000` (eller den port du angett i `.env`).
 
 ## API-endpoints
 
-### GET /api/beans
-
-Hämtar alla kaffe bönor.
-
-**Svar:** `200 OK`
-
-```json
-[
-  { "id": 1, "title": "Interstellar", "year": 2014, "genre": "Sci-Fi" },
-  { "id": 2, "title": "The Dark Knight", "year": 2008, "genre": "Action" }
-]
-```
-
 ---
 
 ### GET /api/beans
