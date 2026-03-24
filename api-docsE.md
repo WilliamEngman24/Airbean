@@ -4,7 +4,31 @@
 
 ## Teknikstack
 
+- Node.js
+- SQLite
+- Express
+- UUID
+
 ## Installation & start
+
+```bash
+# Klona repot
+git clone [repo-url]
+cd [projektmapp]
+
+# Installera beroenden
+npm install
+
+# Skapa .env (kopiera från .env.example)
+cp .env.example .env
+# Fyll i dina värden i .env
+
+# Starta servern
+node server.js
+# eller med --watch:
+node --watch server.js
+```
+Servern startar på `http://localhost:3000` (eller den port du angett i `.env`).
 
 ## API-endpoints
 
@@ -23,84 +47,67 @@ Hämtar alla kaffe bönor.
 
 ---
 
-### GET /api/beans/:id
+### GET /api/beans
 
-Hämtar en specifik kaffe böna.
+[Vad endpointen gör]
 
 **Svar:** `200 OK`
 
 ```json
-{ "id": 1, "title": "Interstellar", "year": 2014, "genre": "Sci-Fi" }
+[exempelsvar]
 ```
 
+---
+
+### GET /api/beans/:id
+
+[Vad endpointen gör]
+
+**Svar:** `200 OK`
 **Fel:** `404 Not Found`
-
-```json
-{ "fel": "Bönan hittades inte" }
-```
 
 ---
 
 ### POST /api/beans
 
-Skapar en ny kaffe böna.
+[Vad endpointen gör]
 
 **Body:**
 
 ```json
 {
-  "title": "Dune",
-  "year": 2021,
-  "genre": "Sci-Fi"
+  "fält1": "värde",
+  "fält2": "värde"
 }
 ```
 
-Alla fält är obligatoriska.
-
 **Svar:** `201 Created`
-
-```json
-{ "id": 3, "title": "Dune", "year": 2021, "genre": "Sci-Fi" }
-```
-
 **Fel:** `400 Bad Request`
-
-```json
-{ "fel": "title, year och genre är obligatoriska" }
-```
 
 ---
 
 ### PUT /api/beans/:id
 
-Uppdaterar en befintlig kaffe böna.
+[Vad endpointen gör]
 
-**Body:**
-
-```json
-{
-  "title": "Interstellar",
-  "year": 2014,
-  "genre": "Drama"
-}
-```
-
-**Svar:** `200 OK` med det uppdaterade objektet.
-
+**Body:** [samma som POST]
+**Svar:** `200 OK`
 **Fel:** `404 Not Found` | `400 Bad Request`
 
 ---
 
 ### DELETE /api/beans/:id
 
-Tar bort en kaffe böna.
+[Vad endpointen gör]
 
-**Svar:** `204 No Content` (tom body)
-
+**Svar:** `204 No Content`
 **Fel:** `404 Not Found`
 
-```json
-{ "fel": "Bönan hittades inte" }
-```
-
 ## WebSocket-diskussion
+
+## Gruppmedlemmar
+
+- Robin
+- Pontus
+- Tommy
+- William
