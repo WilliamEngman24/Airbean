@@ -8,9 +8,9 @@
 
 ## API-endpoints
 
-### GET /api/movies
+### GET /api/beans
 
-Hämtar alla filmer.
+Hämtar alla kaffe bönor.
 
 **Svar:** `200 OK`
 
@@ -23,9 +23,9 @@ Hämtar alla filmer.
 
 ---
 
-### GET /api/movies/:id
+### GET /api/beans/:id
 
-Hämtar en specifik film.
+Hämtar en specifik kaffe böna.
 
 **Svar:** `200 OK`
 
@@ -36,14 +36,14 @@ Hämtar en specifik film.
 **Fel:** `404 Not Found`
 
 ```json
-{ "fel": "Filmen hittades inte" }
+{ "fel": "Bönan hittades inte" }
 ```
 
 ---
 
-### POST /api/movies
+### POST /api/beans
 
-Skapar en ny film.
+Skapar en ny kaffe böna.
 
 **Body:**
 
@@ -71,9 +71,9 @@ Alla fält är obligatoriska.
 
 ---
 
-### PUT /api/movies/:id
+### PUT /api/beans/:id
 
-Uppdaterar en befintlig film.
+Uppdaterar en befintlig kaffe böna.
 
 **Body:**
 
@@ -91,16 +91,16 @@ Uppdaterar en befintlig film.
 
 ---
 
-### DELETE /api/movies/:id
+### DELETE /api/beans/:id
 
-Tar bort en film.
+Tar bort en kaffe böna.
 
 **Svar:** `204 No Content` (tom body)
 
 **Fel:** `404 Not Found`
 
 ```json
-{ "fel": "Filmen hittades inte" }
+{ "fel": "Bönan hittades inte" }
 ```
 
 ## WebSocket-diskussion
