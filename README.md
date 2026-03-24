@@ -36,6 +36,8 @@ Servern startar på `http://localhost:3000` (eller den port du angett i `.env`).
 
 ## WebSocket-diskussion
 
+Genom att uppkoppla drönare till internet genom wifi kan drönarens position updateras i realtid. Detta skulle kräva Websockets då dess kordinater bör anges konstant eller med en liten tidsinterval. Detta skapar en server/klient relation där drönarna blir klienterna som behöver uppkolpas till en server. 
+
 ## Gruppmedlemmar
 
 - Robin
