@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
     const id = uuidv4(); //generate unique id for the new user using uuid library
 
     const stmt = db.prepare(`
-        INSERT INTO users (id, username, email, createdAt)
+        INSERT INTO users (id, username, email, user_date)
         VALUES (?, ?, ?, ?)
         `)
 
