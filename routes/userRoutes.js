@@ -11,7 +11,7 @@ router.get('/', (_req, res) => {
     res.json(users);
 });
 
-router.get(':id', (req, res) => {
+router.get('/:id', (req, res) => {
     const id = req.params.id;
     
     const user = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
@@ -33,19 +33,19 @@ router.post('/', (req, res) => {
         return res.status(400).json({ error: 'Name and email are required' });
     }
 
-    const createdAt = new Date().toISOString();
+    const user_date = new Date().toISOString();
 
     const id = uuidv4(); //generate unique id for the new user using uuid library
 
     const stmt = db.prepare(`
-        INSERT INTO users (id, username, email, createdAt)
+        INSERT INTO users (id, username, email, user_date)
         VALUES (?, ?, ?, ?)
         `)
 
-    stmt.run(id, username, email, createdAt);
+    stmt.run(id, username, email, user_date);
 
     const newUser = db
-    .prepare(' SELECT * FROM users WHERE id = ?')
+    .prepare('SELECT * FROM users WHERE id = ?')
     .get(id); 
 
     res.status(201).json(newUser);
