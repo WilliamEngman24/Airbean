@@ -9,7 +9,7 @@ import menuRoutes from "./menuRoutes.js";
 const router = Router ();
 
 router.use(requireApiKey);
-router.use("/users", userRoutes);
+//router.use("/users", userRoutes);
 router.use("/menu", menuRoutes);
 
 // get rid of the '//' when file for orderRoutes.js iscreated

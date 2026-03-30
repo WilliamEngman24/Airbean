@@ -16,8 +16,6 @@ router.get("/", (req, res) => {
   res.json(menu);
 });
 
-export default router;
-
 // GET /api/menu/:id-Hämta en specifik kaffesort
 
 router.get("/:id", (req, res) => {
@@ -29,3 +27,5 @@ router.get("/:id", (req, res) => {
   }
   res.json(coffee);
 });
+
+export default router;
