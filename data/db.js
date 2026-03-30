@@ -1,5 +1,5 @@
 import Database from "better-sqlite3";
-import fs from "fs"; //Jag lagt till lokaltimport fs from 'fs';
+import fs from "fs";
 
 const db = new Database("./data/airbean.db");
 
@@ -37,101 +37,100 @@ db.exec(`
   );
   `);
 
-  //------ Menu data ------
+//------ Menu data ------
 
-  //load initial data and deconstruct menu array from menu.json
-  const { menu } = JSON.parse(fs.readFileSync('./data/menu.json', 'utf-8'));
+//load initial data and deconstruct menu array from menu.json
+const { menu } = JSON.parse(fs.readFileSync("./data/menu.json", "utf-8"));
 
-  //prapare statement
-  const insertMenu = db.prepare(`
+//prapare statement
+const insertMenu = db.prepare(`
     INSERT INTO menu (id, title, desc, price) VALUES (?, ?, ?, ?)
   `);
 
-  //check if menu is empty or not
-  const menuCheck = db.prepare('SELECT COUNT(*) AS count FROM menu').get();
+//check if menu is empty or not
+const menuCheck = db.prepare("SELECT COUNT(*) AS count FROM menu").get();
 
-  //if menu is empty, insert data
-  //transaction makes it faster and safer than inserting one by one
-  if (menuCheck.count === 0) {
-    const insertAllMenu = db.transaction((items) => {
-      items.forEach(item => insertMenu.run(item.id, item.title, item.desc, item.price));
-    });
-    insertAllMenu(menu);
-  }
+//if menu is empty, insert data
+//transaction makes it faster and safer than inserting one by one
+if (menuCheck.count === 0) {
+  const insertAllMenu = db.transaction((items) => {
+    items.forEach((item) =>
+      insertMenu.run(item.id, item.title, item.desc, item.price),
+    );
+  });
+  insertAllMenu(menu);
+}
 
-  //------ User data ---------
+//------ User data ---------
 
-  const { users } = JSON.parse(fs.readFileSync('./data/users.json', 'utf-8'));
+const { users } = JSON.parse(fs.readFileSync("./data/users.json", "utf-8"));
 
-  const insertUsers = db.prepare(`
+const insertUsers = db.prepare(`
     INSERT INTO users (id, username, email, user_date) VALUES (?, ?, ?, ?)
   `);
 
-  const userCheck = db.prepare('SELECT COUNT(*) AS count FROM users').get();
+const userCheck = db.prepare("SELECT COUNT(*) AS count FROM users").get();
 
-  if (userCheck.count === 0) {
-    const insertAllUsers = db.transaction((items) => {
-      items.forEach(item => insertUsers.run(item.id, item.username, item.email, item.user_date));
-    });
-    insertAllUsers(users);
-  }
-  
+if (userCheck.count === 0) {
+  const insertAllUsers = db.transaction((items) => {
+    items.forEach((item) =>
+      insertUsers.run(item.id, item.username, item.email, item.user_date),
+    );
+  });
+  insertAllUsers(users);
+}
 
-  //------ Order data ----------
+//------ Order data ----------
 
-  const { orders } = JSON.parse(fs.readFileSync('./data/orders.json', 'utf-8'));
+const { orders } = JSON.parse(fs.readFileSync("./data/orders.json", "utf-8"));
 
-  const insertOrders = db.prepare(`
+const insertOrders = db.prepare(`
     INSERT INTO orders (id, user_id, total_price, ETA, order_date) VALUES (?, ?, ?, ?, ?)
   `);
 
-  const orderCheck = db.prepare('SELECT COUNT(*) AS count FROM orders').get();
+const orderCheck = db.prepare("SELECT COUNT(*) AS count FROM orders").get();
 
-  if (orderCheck.count === 0) {
-    const insertAllOrders = db.transaction((items) => {
-      items.forEach(item => insertOrders.run(item.id, item.user_id, item.total_price, item.ETA, item.order_date));
-    });
-    insertAllOrders(orders);
-  }
+if (orderCheck.count === 0) {
+  const insertAllOrders = db.transaction((items) => {
+    items.forEach((item) =>
+      insertOrders.run(
+        item.id,
+        item.user_id,
+        item.total_price,
+        item.ETA,
+        item.order_date,
+      ),
+    );
+  });
+  insertAllOrders(orders);
+}
 
-  //------ Order items data ---------
-  
-  const { order_items } = JSON.parse(fs.readFileSync('./data/order_items.json', 'utf-8'));
+//------ Order items data ---------
 
-  const insertOrderItems = db.prepare(`
+const { order_items } = JSON.parse(
+  fs.readFileSync("./data/order_items.json", "utf-8"),
+);
+
+const insertOrderItems = db.prepare(`
     INSERT INTO order_items (id, order_id, product_id, quantity) VALUES (?, ?, ?, ?)
   `);
 
-  const orderItemsCheck = db.prepare('SELECT COUNT(*) AS count FROM order_items').get();
+const orderItemsCheck = db
+  .prepare("SELECT COUNT(*) AS count FROM order_items")
+  .get();
 
-  if (orderItemsCheck.count === 0) {
-    const insertAllOrderItems = db.transaction((items) => {
-      items.forEach(item => insertOrderItems.run(item.id, item.order_id, item.product_id, item.quantity));
-    });
-    insertAllOrderItems(order_items);
-  }
-
-//****************LOKALT INNEHÅLL
-// 2. Fyll menyn automatiskt (Innehållet)
-const count = db.prepare("SELECT count(*) as c FROM menu").get().c;
-
-if (count === 0) {
-  try {
-    const rawData = fs.readFileSync("./data/menu.json", "utf8");
-    const { menu } = JSON.parse(rawData);
-
-    const insert = db.prepare(
-      "INSERT INTO menu (id, title, description, price) VALUES (?, ?, ?, ?)",
+if (orderItemsCheck.count === 0) {
+  const insertAllOrderItems = db.transaction((items) => {
+    items.forEach((item) =>
+      insertOrderItems.run(
+        item.id,
+        item.order_id,
+        item.product_id,
+        item.quantity,
+      ),
     );
-
-    for (const item of menu) {
-      // mappar item.desc från JSON till kolumnen description i DB
-      insert.run(item.id.toString(), item.title, item.desc, item.price);
-    }
-    console.log("Databasen var tom - Menyn har laddats in från menu.json");
-  } catch (err) {
-    console.log("Kunde inte ladda menu.json, kontrollera filen");
-  }
+  });
+  insertAllOrderItems(order_items);
 }
 
 export default db;
