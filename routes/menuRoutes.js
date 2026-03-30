@@ -21,7 +21,7 @@ export default router;
 // GET /api/menu/:id-Hämta en specifik kaffesort
 
 router.get("/:id", (req, res) => {
-  const id = Number(req.params.id);
+  const id = req.params.id;
   const coffee = db.prepare("SELECT * FROM menu WHERE id = ?").get(id);
 
   if (!coffee) {
