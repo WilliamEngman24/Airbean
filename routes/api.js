@@ -11,6 +11,8 @@ const router = Router ();
 router.use(requireApiKey);
 router.use("/users", userRoutes);
 router.use("/menu", menuRoutes);
-router.use("/orders", orderRoutes);
+
+// get rid of the '//' when file for orderRoutes.js iscreated
+//router.use("/orders", orderRoutes);
 
 export default router;
