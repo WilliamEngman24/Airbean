@@ -1,0 +1,22 @@
+{
+    "order_items": [
+        {
+            "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfp",
+            "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+            "product_id": "1",
+            "quantity": 1
+        },
+        {
+            "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfl",
+            "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+            "product_id": "2",
+            "quantity": 2
+        },
+        {
+            "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfm",
+            "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+            "product_id": "3",
+            "quantity": 3
+        }
+    ]
+}
