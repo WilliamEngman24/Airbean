@@ -1,7 +1,7 @@
-import Database from 'better-sqlite3';
-import fs from 'fs';
+import Database from "better-sqlite3";
+import fs from "fs"; //Jag lagt till lokaltimport fs from 'fs';
 
-const db = new Database('./data/airbean.db');
+const db = new Database("./data/airbean.db");
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
@@ -110,5 +110,28 @@ db.exec(`
     });
     insertAllOrderItems(order_items);
   }
+
+//****************LOKALT INNEHÅLL
+// 2. Fyll menyn automatiskt (Innehållet)
+const count = db.prepare("SELECT count(*) as c FROM menu").get().c;
+
+if (count === 0) {
+  try {
+    const rawData = fs.readFileSync("./data/menu.json", "utf8");
+    const { menu } = JSON.parse(rawData);
+
+    const insert = db.prepare(
+      "INSERT INTO menu (id, title, description, price) VALUES (?, ?, ?, ?)",
+    );
+
+    for (const item of menu) {
+      // mappar item.desc från JSON till kolumnen description i DB
+      insert.run(item.id.toString(), item.title, item.desc, item.price);
+    }
+    console.log("Databasen var tom - Menyn har laddats in från menu.json");
+  } catch (err) {
+    console.log("Kunde inte ladda menu.json, kontrollera filen");
+  }
+}
 
 export default db;
