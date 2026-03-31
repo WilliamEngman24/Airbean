@@ -65,9 +65,9 @@ Hämtar hela kaffemenyn
 
 ---
 
-### GET /api/menu/5
+### GET /api/menu/:id
 
-Hämtar ett specifikt menyid
+Hämtar ett specifikt meny id-nr
 
 **Svar:** `200 OK`
 **Fel:** `404 Kaffesorten hittades inte`
