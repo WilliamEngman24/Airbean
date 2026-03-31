@@ -2,7 +2,7 @@ import Database from "better-sqlite3";
 import fs from "fs";
 
 //or null if guest
-const db = new Database("./data/airbean.db");
+const db = new Database(process.env.DB_PATH);
 //test
 
 db.exec(`
