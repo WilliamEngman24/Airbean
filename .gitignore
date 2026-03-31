@@ -1,6 +1,6 @@
 node_modules
 .env
-*db
+data/airbean.db
 
 # Dependency directories
 node_modules/
@@ -34,3 +34,4 @@ Thumbs.db
 # Build output (om du börjar använda TypeScript/Build-steg senare)
 dist/
 build/
+*.db
