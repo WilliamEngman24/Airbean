@@ -6,7 +6,8 @@ Välkomsttext
 
 **Svar:** `200 OK`
 
-```{
+```json
+{
     "message": "Välkommen till grupp nr-6 API"
 }
 ```
@@ -19,54 +20,67 @@ Hämtar hela kaffemenyn
 
 **Svar:** `200 OK`
 **Fel:** `404 Kaffemenyn hittades inte`
+**Fel:** `500 Ett oväntat fel uppstod`
 
+```json
 [
-    {
-        "id": "1",
-        "title": "Bryggkaffe",
-        "desc": "Bryggd på månadens bönor.",
-        "price": 39
-    },
-    {
-        "id": "2",
-        "title": "Caffè Doppio",
-        "desc": "Bryggd på månadens bönor.",
-        "price": 49
-    },
-    {
-        "id": "3",
-        "title": "Cappuccino",
-        "desc": "Bryggd på månadens bönor.",
-        "price": 49
-    },
-    {
-        "id": "4",
-        "title": "Latte Macchiato",
-        "desc": "Bryggd på månadens bönor.",
-        "price": 49
-    },
-    {
-        "id": "5",
-        "title": "Kaffe Latte",
-        "desc": "Bryggd på månadens bönor.",
-        "price": 54
-    },
-    {
-        "id": "6",
-        "title": "Cortado",
-        "desc": "Bryggd på månadens bönor.",
-        "price": 39
-    }
+  {
+    "id": "1",
+    "title": "Bryggkaffe",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 39
+  },
+  {
+    "id": "2",
+    "title": "Caffè Doppio",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 49
+  },
+  {
+    "id": "3",
+    "title": "Cappuccino",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 49
+  },
+  {
+    "id": "4",
+    "title": "Latte Macchiato",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 49
+  },
+  {
+    "id": "5",
+    "title": "Kaffe Latte",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 54
+  },
+  {
+    "id": "6",
+    "title": "Cortado",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 39
+  }
 ]
+```
 
 ---
 
-### GET /api/beans/:id
+### GET /api/menu/5
 
-[Vad endpointen gör]
+Hämtar ett specifikt menyid
 
 **Svar:** `200 OK`
-**Fel:** `404 Not Found`
+**Fel:** `404 Kaffesorten hittades inte`
+**Fel:** `500 Ett oväntat fel uppstod`
+
+```json
+{
+    "id": "5",
+    "title": "Kaffe Latte",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 54
+}
+```
 
 ---
 
