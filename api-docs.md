@@ -60,13 +60,13 @@ Hämtar hela kaffemenyn
   }
 ]
 ```
+**Fel:** `404 Not Found`
 ```json
-**Fel:** `404 Kaffemenyn hittades inte`
 {
-    "error": "Kaffesorten hittades inte"
+    "error": "Kaffemenyn hittades inte"
 }
 
-**Fel:** `500 Ett oväntat fel uppstod`
+**Fel:** `500 Internal Server Error`
 
 {
     "error": "Ett oväntat fel uppstod"
@@ -79,8 +79,6 @@ Hämtar hela kaffemenyn
 Hämtar ett specifikt meny id-nr
 
 **Svar:** `200 OK`
-**Fel:** `404 Kaffesorten hittades inte`
-**Fel:** `500 Ett oväntat fel uppstod`
 
 ```json
 {
@@ -88,6 +86,19 @@ Hämtar ett specifikt meny id-nr
     "title": "Kaffe Latte",
     "desc": "Bryggd på månadens bönor.",
     "price": 54
+}
+```
+
+```json
+**Fel:** `404 Not Found`
+{
+    "error": "Kaffesorten hittades inte"
+}
+
+**Fel:** `500 Internal Server Error`
+
+{
+    "error": "Ett oväntat fel uppstod"
 }
 ```
 
