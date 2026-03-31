@@ -66,8 +66,9 @@ Hämtar hela kaffemenyn
     "error": "Kaffemenyn hittades inte"
 }
 
+```
 **Fel:** `500 Internal Server Error`
-
+```json
 {
     "error": "Ett oväntat fel uppstod"
 }
@@ -79,7 +80,6 @@ Hämtar hela kaffemenyn
 Hämtar ett specifikt meny id-nr
 
 **Svar:** `200 OK`
-
 ```json
 {
     "id": "5",
@@ -89,14 +89,14 @@ Hämtar ett specifikt meny id-nr
 }
 ```
 
-```json
 **Fel:** `404 Not Found`
+```json
 {
     "error": "Kaffesorten hittades inte"
 }
-
+```
 **Fel:** `500 Internal Server Error`
-
+```json
 {
     "error": "Ett oväntat fel uppstod"
 }
