@@ -77,7 +77,7 @@ Hämtar hela kaffemenyn
 
 ### GET /api/menu/:id
 
-Hämtar ett specifikt meny id-nr
+Hämtar ett specifikt id-nr från meny 
 
 **Svar:** `200 OK`
 ```json
