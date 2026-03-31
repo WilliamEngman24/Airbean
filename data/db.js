@@ -22,7 +22,7 @@ db.exec(`
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL,
   total_price REAL NOT NULL,
-  ETA TEXT,
+  ETA REAL NOT NULL,
   order_date TEXT,
   FOREIGN KEY (user_id) REFERENCES users(id)
   );
