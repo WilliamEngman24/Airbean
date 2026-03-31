@@ -11,19 +11,17 @@ import menuRoutes from "./menuRoutes.js";
 
 const router = Router ();
 
-<<<<<<< HEAD
 router.use(requireApiKey);
 router.use("/users", userRoutes);
 router.use("/menu", menuRoutes);
 //router.use("/orders", orderRoutes);
-=======
+
 /*router.post('/test-order', validateOrder, (req, res) => {
   res.status(200).json({
     message: 'Validering OK',
     items: req.validatedItems
   });
 });*/
->>>>>>> c0acb4a737a928b057fbc63ab75c4259d4e924b7
 
 router.use(requireApiKey);
 //router.use("/users", userRoutes);
