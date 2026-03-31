@@ -2,7 +2,7 @@ import Database from "better-sqlite3";
 import fs from "fs";
 
 const db = new Database("./data/airbean.db");
-
+//test
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,
