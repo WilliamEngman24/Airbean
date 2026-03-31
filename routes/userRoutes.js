@@ -1,4 +1,4 @@
-import {Router } from "express";
+import { Router } from "express";
 import { v4 as uuidv4 } from "uuid";
 import db from "../data/db.js";
 
@@ -7,14 +7,14 @@ import db from "../data/db.js";
 const router = Router ();
 
 router.get('/', (_req, res) => {
-    const users = db.prepare('SELECT * FROM users').all();
+    const users = db.prepare('SELECT id, username, email, user_date FROM users').all();
     res.json(users);
 });
 
 router.get('/:id', (req, res) => {
     const id = req.params.id;
     
-    const user = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
+    const user = db.prepare('SELECT id, username, email, user_date FROM users WHERE id = ?').get(id);
     
     if (!user) {
         return res.status(404).json({ error: 'User not found' });
@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
     stmt.run(id, username, email, user_date);
 
     const newUser = db
-    .prepare('SELECT * FROM users WHERE id = ?')
+    .prepare('SELECT id, username, email, user_date FROM users WHERE id = ?')
     .get(id); 
 
     res.status(201).json(newUser);
@@ -54,8 +54,10 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     const id = req.params.id;
 
+    const { username, email } = req.body; //destructuring
+
     //example of avoid using destructuring
-    if (!req.body.username || !req.body.email) {
+    if (!username || !email) {
         return res.status(400).json({ error: 'Name and email are required' });
     }
 
@@ -65,13 +67,13 @@ router.put('/:id', (req, res) => {
         WHERE id = ?
     `);
 
-    const result = stmt.run(req.body.username, req.body.email, id);
+    const result = stmt.run(username, email, id);
 
     //how many rows were updated, if 0 then the user with the given id was not found
     if (result.changes === 0) {
         return res.status(404).json({ error: 'User not found' });
     }
-    const updateUser = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
+    const updateUser = db.prepare('SELECT id, username, email, user_date FROM users WHERE id = ?').get(id);
     res.json(updateUser);
 });
 
