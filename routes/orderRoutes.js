@@ -23,11 +23,11 @@ router.get("/status/:id", (req, res) => {
     const now = new Date();
 
     const minutesPassed = Math.floor((now - orderTime) / 60000);
-    const minutesLeft = Math.max(order.eta - minutesPassed, 0);
+    const minutesLeft = Math.max(order.ETA - minutesPassed, 0);
 
     res.json({
         order_id: order.id,
-        eta: order.eta,
+        ETA: order.ETA,
         minutes_left: minutesLeft
     });
 });
