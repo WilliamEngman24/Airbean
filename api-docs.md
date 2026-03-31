@@ -1,4 +1,4 @@
-#Airbean API – Dokumentation
+# Airbean API – Dokumentation
 
 ### GET /api
 
@@ -10,6 +10,54 @@ Välkomsttext
     "message": "Välkommen till grupp nr-6 API"
 }
 ```
+
+---
+
+### GET /api/menu
+
+Hämtar hela kaffemenyn
+
+**Svar:** `200 OK`
+**Fel:** `404 Kaffemenyn hittades inte`
+
+[
+    {
+        "id": "1",
+        "title": "Bryggkaffe",
+        "desc": "Bryggd på månadens bönor.",
+        "price": 39
+    },
+    {
+        "id": "2",
+        "title": "Caffè Doppio",
+        "desc": "Bryggd på månadens bönor.",
+        "price": 49
+    },
+    {
+        "id": "3",
+        "title": "Cappuccino",
+        "desc": "Bryggd på månadens bönor.",
+        "price": 49
+    },
+    {
+        "id": "4",
+        "title": "Latte Macchiato",
+        "desc": "Bryggd på månadens bönor.",
+        "price": 49
+    },
+    {
+        "id": "5",
+        "title": "Kaffe Latte",
+        "desc": "Bryggd på månadens bönor.",
+        "price": 54
+    },
+    {
+        "id": "6",
+        "title": "Cortado",
+        "desc": "Bryggd på månadens bönor.",
+        "price": 39
+    }
+]
 
 ---
 
