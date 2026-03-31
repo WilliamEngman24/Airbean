@@ -60,34 +60,58 @@ Hämtar hela kaffemenyn
   }
 ]
 ```
+**Fel:** `404 Not Found`
 ```json
-**Fel:** `404 Kaffemenyn hittades inte`
 {
-    "error": "Kaffesorten hittades inte"
+    "error": "Kaffemenyn hittades inte"
 }
 
-**Fel:** `500 Ett oväntat fel uppstod`
-
+```
+**Fel:** `500 Internal Server Error`
+```json
 {
     "error": "Ett oväntat fel uppstod"
 }
 ```
+**Fel:** `401 Unauthorized`
+```json
+{
+    "error": "Invalid API key"
+}
+```
+
 ---
 
 ### GET /api/menu/:id
 
-Hämtar ett specifikt meny id-nr
+Hämtar ett specifikt id-nr från menyn
 
 **Svar:** `200 OK`
-**Fel:** `404 Kaffesorten hittades inte`
-**Fel:** `500 Ett oväntat fel uppstod`
-
 ```json
 {
     "id": "5",
     "title": "Kaffe Latte",
     "desc": "Bryggd på månadens bönor.",
     "price": 54
+}
+```
+
+**Fel:** `404 Not Found`
+```json
+{
+    "error": "Kaffesorten hittades inte"
+}
+```
+**Fel:** `500 Internal Server Error`
+```json
+{
+    "error": "Ett oväntat fel uppstod"
+}
+```
+**Fel:** `401 Unauthorized`
+```json
+{
+    "error": "Invalid API key"
 }
 ```
 
