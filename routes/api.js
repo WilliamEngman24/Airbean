@@ -11,6 +11,6 @@ const router = Router ();
 router.use(requireApiKey);
 router.use("/users", userRoutes);
 router.use("/menu", menuRoutes);
-router.use("/orders", orderRoutes);
+//router.use("/orders", orderRoutes);
 
 export default router;

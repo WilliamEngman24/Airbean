@@ -3,6 +3,7 @@ import fs from 'fs';
 
 const db = new Database('./data/airbean.db');
 
+//or null if guest
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,
