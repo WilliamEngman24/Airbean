@@ -1,11 +1,14 @@
-### GET /api/beans
+#Airbean API – Dokumentation
 
-[Vad endpointen gör]
+### GET /api
+
+Välkomsttext
 
 **Svar:** `200 OK`
 
-```json
-[exempelsvar]
+```{
+    "message": "Välkommen till grupp nr-6 API"
+}
 ```
 
 ---
