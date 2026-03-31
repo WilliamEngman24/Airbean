@@ -19,8 +19,6 @@ Välkomsttext
 Hämtar hela kaffemenyn
 
 **Svar:** `200 OK`
-**Fel:** `404 Kaffemenyn hittades inte`
-**Fel:** `500 Ett oväntat fel uppstod`
 
 ```json
 [
@@ -62,7 +60,18 @@ Hämtar hela kaffemenyn
   }
 ]
 ```
+```json
+**Fel:** `404 Kaffemenyn hittades inte`
+{
+    "error": "Kaffesorten hittades inte"
+}
 
+**Fel:** `500 Ett oväntat fel uppstod`
+
+{
+    "error": "Ett oväntat fel uppstod"
+}
+```
 ---
 
 ### GET /api/menu/:id
