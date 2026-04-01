@@ -1,8 +1,10 @@
 import Database from "better-sqlite3";
 import fs from "fs";
 
+//or null if guest
 const db = new Database("./data/airbean.db");
 //test
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,
@@ -22,7 +24,7 @@ db.exec(`
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL,
   total_price REAL NOT NULL,
-  ETA TEXT,
+  ETA REAL NOT NULL,
   order_date TEXT,
   FOREIGN KEY (user_id) REFERENCES users(id)
   );

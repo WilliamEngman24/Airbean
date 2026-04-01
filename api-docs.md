@@ -73,11 +73,18 @@ Hämtar hela kaffemenyn
     "error": "Ett oväntat fel uppstod"
 }
 ```
+**Fel:** `401 Unauthorized`
+```json
+{
+    "error": "Invalid API key"
+}
+```
+
 ---
 
 ### GET /api/menu/:id
 
-Hämtar ett specifikt meny id-nr
+Hämtar ett specifikt id-nr från menyn
 
 **Svar:** `200 OK`
 ```json
@@ -99,6 +106,12 @@ Hämtar ett specifikt meny id-nr
 ```json
 {
     "error": "Ett oväntat fel uppstod"
+}
+```
+**Fel:** `401 Unauthorized`
+```json
+{
+    "error": "Invalid API key"
 }
 ```
 

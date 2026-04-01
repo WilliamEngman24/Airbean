@@ -7,15 +7,30 @@ import db from "../data/db.js";
 const router = Router ();
 
 router.get('/', (_req, res) => {
-    const users = db.prepare('SELECT id, username, email, user_date FROM users').all();
-    res.json(users);
+    try {
+        const users = db.prepare('SELECT id, username, email, user_date FROM users').all();
+
+        res.json(users);
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Kunde inte hämta alla användare' });
+    }
 });
 
 router.get('/:id', (req, res) => {
-    const id = req.params.id;
+    try {
+        const id = req.params.id;
     
-    const user = db.prepare('SELECT id, username, email, user_date FROM users WHERE id = ?').get(id);
-    
+        const user = db.prepare('SELECT id, username, email, user_date FROM users WHERE id = ?').get(id);
+
+        res.json(user);
+
+    } catch (error) {
+        res.status(500).json({ error: 'Kunde inte hämta denna användare' });
+    }
+
+}
+
     if (!user) {
         return res.status(404).json({ error: 'User not found' });
     }
