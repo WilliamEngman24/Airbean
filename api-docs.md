@@ -1,5 +1,6 @@
 # Airbean API – Dokumentation
 
+##MenuRoutes
 ### GET /api
 
 Välkomsttext
