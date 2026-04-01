@@ -12,25 +12,25 @@
 ## Installation & start
 
 
-# Klona repot
+## Klona repot
 ```bash
-git clone [repo-url]
+git clone [repo-url](https://github.com/WilliamEngman24/Airbean.git))
 cd [projektmapp]
 ```
-# Installera beroenden
+## Installera beroenden
 ```bash
 npm install
 ```
-# Skapa .env (kopiera från .env.example)
+## Skapa .env (kopiera från .env.example)
 ```bash
 cp .env.example .env
 # Fyll i dina värden i .env
 ```
-# Starta servern
+## Starta servern
 ```bash
 node server.js
 node --watch server.js
-Servern startar på `http://localhost:3000` (eller den port du angett i `.env`).
+Servern startar på [localhost:3000]((http://localhost:3000) (eller den port du angett i `.env`).
 ```
 ## API-endpoints
 
