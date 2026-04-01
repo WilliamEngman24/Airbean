@@ -26,7 +26,7 @@ db.exec(`
   total_price REAL NOT NULL,
   ETA REAL NOT NULL,
   order_date TEXT,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
   );
 
   CREATE TABLE IF NOT EXISTS order_items (
@@ -34,8 +34,8 @@ db.exec(`
   order_id TEXT NOT NULL,
   product_id TEXT NOT NULL,
   quantity INTEGER NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders(id),
-  FOREIGN KEY (product_id) REFERENCES menu(id)
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE, 
+  FOREIGN KEY (product_id) REFERENCES menu(id) ON DELETE CASCADE
   );
   `);
 
