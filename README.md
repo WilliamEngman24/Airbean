@@ -17,10 +17,9 @@ Systemet använder API-nycklel för att säkerställa att endast auktoriserade k
 
 ## Klona repot
 ```bash
-git clone
-[repo-url](https://github.com/WilliamEngman24/Airbean.git)
-
-cd [projektmapp]
+```bash
+git clone [https://github.com](https://github.com/WilliamEngman24/Airbean.git)
+cd Airbean
 ```
 ## Installera beroenden
 ```bash
