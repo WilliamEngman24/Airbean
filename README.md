@@ -4,32 +4,34 @@
 
 ## Teknikstack
 
-- Node.js
-- SQLite
-- Express
-- UUID
+- **Runtime:** Node.js
+- **Databas:** SQLite
+- **Ramverk:** Express
+- **Verktyg:** UUID.env
 
 ## Installation & start
 
-```bash
+
 # Klona repot
+```bash
 git clone [repo-url]
 cd [projektmapp]
-
+```
 # Installera beroenden
+```bash
 npm install
-
+```
 # Skapa .env (kopiera från .env.example)
+```bash
 cp .env.example .env
 # Fyll i dina värden i .env
-
-# Starta servern
-node server.js
-# eller med --watch:
-node --watch server.js
 ```
+# Starta servern
+```bash
+node server.js
+node --watch server.js
 Servern startar på `http://localhost:3000` (eller den port du angett i `.env`).
-
+```
 ## API-endpoints
 
 [API Dokumentation](api-docs.md)
