@@ -2,6 +2,9 @@
 
 ## Projektbeskrivning
 
+Airbean API hanterar användarregistrering, menysystem och orderhantering för kaffebeställningar.
+Systemet använder API-nycklel för att säkerställa att endast auktoriserade klienter kan kommunicera med tjänsten.
+
 ## Teknikstack
 
 - **Runtime:** Node.js
@@ -14,7 +17,7 @@
 
 ## Klona repot
 ```bash
-git clone [repo-url](https://github.com/WilliamEngman24/Airbean.git))
+git clone [repo-url](https://github.com/WilliamEngman24/Airbean.git)
 cd [projektmapp]
 ```
 ## Installera beroenden
@@ -30,7 +33,7 @@ cp .env.example .env
 ```bash
 node server.js
 node --watch server.js
-Servern startar på [localhost:3000]((http://localhost:3000) (eller den port du angett i `.env`).
+Servern startar på [localhost:3000](http://localhost:3000) (eller den port du angett i `.env`).
 ```
 ## API-endpoints
 
