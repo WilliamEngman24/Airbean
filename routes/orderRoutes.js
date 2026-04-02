@@ -109,15 +109,15 @@ router.post("/", validateOrder, (req, res) => {
     `);
 
     const insertOrderItem = db.prepare(`
-        INSERT INTO order_items (order_id, product_id, quantity)
-        VALUES (?, ?, ?)
+        INSERT INTO order_items (id, order_id, product_id, quantity)
+        VALUES (?, ?, ?, ?)
     `);
 
     const createOrder = db.transaction(() => {
         insertOrder.run(orderId, user_id || null, totalPrice, eta, orderDate);
 
         for (const item of items) {
-            insertOrderItem.run(orderId, item.product_id, item.quantity);
+            insertOrderItem.run(uuidv4(), orderId, item.product_id, item.quantity);
         }
     });
 
