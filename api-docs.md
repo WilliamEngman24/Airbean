@@ -1,6 +1,5 @@
 # Airbean API – Dokumentation
 
-## MenuRoutes
 ### GET /api
 
 Välkomsttext
@@ -140,10 +139,7 @@ Hämtar ett specifikt meny id-nr
 **Svar:** `204 No Content`
 **Fel:** `404 Not Found`
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 37fdc880408992d930b51b3b5575502dbc6e400d
 ## User Routes
 
 ### GET /api/users
@@ -156,24 +152,14 @@ Hämtar alla användare.
 [
   {
   "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
-<<<<<<< HEAD
-  "username": "John_Smith",
-  "email": "notanai@example.com",
-=======
   "username": "old_user",
   "email": "old@example.com",
->>>>>>> 37fdc880408992d930b51b3b5575502dbc6e400d
   "user_date": "2026-03-30T11:40:23.845Z"
   },
   {
   "id": "b8c9d0e1-f2g3-h4i5-j6k7-l8m9n0o1p2q3",
-<<<<<<< HEAD
-  "username": "important_user",
-  "email": "human@example.com",
-=======
   "username": "John_Smith",
   "email": "notai@example.com",
->>>>>>> 37fdc880408992d930b51b3b5575502dbc6e400d
   "user_date": "2026-03-30T11:40:23.845Z"
   },
   {
@@ -254,23 +240,14 @@ Alla fält är obligatoriska.
 
 ### PUT /api/users/:id
 
-<<<<<<< HEAD
-Uppdaterar en befintlig film.
-=======
 Uppdaterar användarinformation.
->>>>>>> 37fdc880408992d930b51b3b5575502dbc6e400d
 
 **Body:**
 
 ```json
 {
-<<<<<<< HEAD
-  "username": "old_person",
-  "email": "oldemail@gmail.com"
-=======
   "username": "old_user",
   "email": "old@gmail.com"
->>>>>>> 37fdc880408992d930b51b3b5575502dbc6e400d
 }
 ```
 
@@ -303,27 +280,16 @@ ELLER
 
 ---
 
-<<<<<<< HEAD
-### DELETE /api/movies/:id
-
-Tar bort en film.
-=======
 ### DELETE /api/users/:id
 
 Tar bort en användare. Om en användare tas bort, raderas också dess orders och kopplade order items.
->>>>>>> 37fdc880408992d930b51b3b5575502dbc6e400d
 
 **Svar:** `204 No Content` (tom body)
 
 **Fel:** `404 Not Found`
 
 ```json
-<<<<<<< HEAD
-{ "fel": "Filmen hittades inte" }
-```
-=======
 {
   "error": "Användare hittades inte"
 }
 ```
->>>>>>> 37fdc880408992d930b51b3b5575502dbc6e400d

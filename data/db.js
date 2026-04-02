@@ -1,13 +1,7 @@
 import Database from "better-sqlite3";
 import fs from "fs";
 
-<<<<<<< HEAD
 const db = new Database(process.env.DB_PATH);
-=======
-//or null if guest
-const db = new Database(process.env.DB_PATH);
-//test
->>>>>>> 92e0b5b6d2866f97befcfbdee4c13eea5fe909ba
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (

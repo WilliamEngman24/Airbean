@@ -21,15 +21,7 @@ router.get('/:id', validateUserCheck, (req, res) => {
 
 });
 
-router.post('/', validateUserCreate, (req, res) => {
-
-    const { username, email } = req.body; //destructuring
-
-    console.log('Received data:', { username, email }); //log the received data for debugging
-
-    if (!username || !email) {
-        return res.status(400).json({ error: 'Kunde inte skapa användare. Alla fält måste fyllas i.' });
-    }
+router.post('/', validateUserCreate, (_req, res) => {
 
     const user_date = new Date().toISOString();
 
@@ -47,23 +39,9 @@ router.post('/', validateUserCreate, (req, res) => {
     .get(id); 
 
     res.status(201).json(newUser);
-
 });
 
-router.put('/:id', validateUserUpdate, (req, res) => {
-    const id = req.params.id;
-
-    const { username, email } = req.body; //destructuring
-
-    const user = db.prepare('SELECT id, username, email, user_date FROM users WHERE id = ?').get(id);
-
-    if (!user) {
-        return res.status(404).json({ error: 'Användare hittades inte' });
-    } 
-
-    if (!username || !email) {
-        return res.status(400).json({ error: 'Namn och e-post är obligatoriska' });
-    }
+router.put('/:id', validateUserCheck, validateUserUpdate, (_req, res) => {
 
     const stmt = db.prepare(`
         UPDATE users
@@ -88,7 +66,7 @@ router.delete('/:id', (req, res) => {
         return res.status(404).json({ error: 'Användare hittades inte' });
     }
     
-    res.json(204).send();
+    res.sendStatus(204);
 });
 
 export default router;
