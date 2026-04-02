@@ -284,7 +284,7 @@ ELLER
 
 ```json
 {
-  "error": "Kunde inte skapa användare. Alla fält måste fyllas i."
+  "error": "Kunde inte skapa användare. Något fält måste fyllas i."
 }
 ```
 
