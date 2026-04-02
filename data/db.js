@@ -1,7 +1,13 @@
 import Database from "better-sqlite3";
 import fs from "fs";
 
+<<<<<<< HEAD
 const db = new Database(process.env.DB_PATH);
+=======
+//or null if guest
+const db = new Database(process.env.DB_PATH);
+//test
+>>>>>>> 92e0b5b6d2866f97befcfbdee4c13eea5fe909ba
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
@@ -20,7 +26,7 @@ db.exec(`
 
   CREATE TABLE IF NOT EXISTS orders (
   id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
+  user_id TEXT,
   total_price REAL NOT NULL,
   ETA REAL NOT NULL,
   order_date TEXT,
@@ -32,7 +38,7 @@ db.exec(`
   order_id TEXT NOT NULL,
   product_id TEXT NOT NULL,
   quantity INTEGER NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE, 
   FOREIGN KEY (product_id) REFERENCES menu(id) ON DELETE CASCADE
   );
   `);
