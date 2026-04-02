@@ -347,9 +347,24 @@ Detta middleware validerar inkommande ordrar mot menyn i databasen innan de skap
 { "error": "items måste finnas och vara en array" }
 
 { "error": "En order måste innehålla minst en produkt" }
+
+{ "error": "Item på position 0 måste vara ett objekt" }
+
+{ "error": "product_id på position 0 måste vara en sträng" }
+
+{ "error": "quantity 0 måste vara ett heltal större än 0" }
+
+{ "error": "Produkt med id 99 finns inte i menyn" }
+
+{ "error": "Fel pris för produkt med id 1" }
 ```
 
+**Fel:** 
+`500 Internal Server Error`
 
+```json
+{ "error": "Något gick fel i valideringen" }
+```
 
 
 
