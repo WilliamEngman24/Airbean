@@ -4,6 +4,11 @@ import fs from "fs";
 const db = new Database(process.env.DB_PATH);
 
 db.exec(`
+  DELETE FROM order_items;
+  DELETE FROM orders;
+  DELETE FROM users;
+  DELETE FROM menu;
+  
   CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,
   username TEXT NOT NULL,
