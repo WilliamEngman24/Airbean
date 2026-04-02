@@ -308,7 +308,7 @@ Tar bort en användare. Om en användare tas bort, raderas också dess orders oc
 
 ### POST /api/orders
 
-Detta middleware validerar inkommande ordrar mot menyn i databasen innan de skapas.
+Skapar en ny order och använder validateOrder middleware för att säkerställa att innehållet är korrekt och att produkterna finns i databasen.
 
 **Body:**
 
