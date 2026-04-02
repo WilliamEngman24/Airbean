@@ -303,3 +303,63 @@ Tar bort en användare. Om en användare tas bort, raderas också dess orders oc
   "error": "Användare hittades inte"
 }
 ```
+
+## Middleware
+
+### POST /api/orders
+
+Detta middleware validerar inkommande ordrar mot menyn i databasen innan de skapas.
+
+**Body:**
+
+```json
+{
+  "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfa",
+  "items": [
+    {
+      "product_id": "1",
+      "quantity": 1,
+      "price": 39
+    }
+  ]
+}
+```
+
+**Svar:** `201 Created`
+
+```json
+{
+  "message": "Order skapad",
+  "order_id": "dfa0096d-2c22-408d-88e2-bf596f235bf4",
+  "total_price": 39,
+  "eta": 17
+}
+```
+
+**Fel:** 
+`400 Bad Request`
+
+```json
+{ "error": "Request body saknas eller är i fel format" }
+
+{ "error": "user_id måste vara en sträng om det skickas med" }
+
+{ "error": "items måste finnas och vara en array" }
+
+{ "error": "En order måste innehålla minst en produkt" }
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
