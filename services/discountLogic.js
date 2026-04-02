@@ -27,6 +27,16 @@ export function calculateDiscount(cart) {
         discountTypes.push({ name: 'Latte Combo Discount', amount: 15 });
     }
 
+    //bun and coffee combo discount. can make more efficient if adding field to all menu items to have 'category'
+    const coffeeItems = new Set(['Bryggkaffe','Caffè Doppio','Cappuccino','Latte Macchiato','Kaffe Latte','Cortado']);
+    const hasBun = cart.some(item => item.name === 'Kanelbulle');
+    const hasCoffee = cart.some(item => coffeeItems.has(item.name));
+
+    if (hasBun && hasCoffee){
+        totalPostDiscount -= 20;
+        discountTypes.push({ name: 'Bun and Coffee Combo Discount', amount: 20 });
+    }
+
     //if somhow total becomes minus then set to 0
     if(totalPostDiscount < 0) totalPostDiscount = 0;
 
