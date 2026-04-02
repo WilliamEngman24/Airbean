@@ -348,15 +348,15 @@ Detta middleware validerar inkommande ordrar mot menyn i databasen innan de skap
 
 { "error": "En order måste innehålla minst en produkt" }
 
-{ "error": "Item på position 0 måste vara ett objekt" }
+{ "error": "Item på position ${i} måste vara ett objekt" }
 
-{ "error": "product_id på position 0 måste vara en sträng" }
+{ "error": "product_id på position ${i} måste vara en sträng" }
 
-{ "error": "quantity 0 måste vara ett heltal större än 0" }
+{ "error": "quantity ${i} måste vara ett heltal större än 0" }
 
-{ "error": "Produkt med id 99 finns inte i menyn" }
+{ "error": "Produkt med id ${item.product_id} finns inte i menyn" }
 
-{ "error": "Fel pris för produkt med id 1" }
+{ "error": "Fel pris för produkt med id ${item.product_id}" }
 ```
 
 **Fel:** 
