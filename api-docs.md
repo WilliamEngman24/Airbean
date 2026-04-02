@@ -1,6 +1,6 @@
 # Airbean API – Dokumentation
 
-### GET /api
+### GET /
 
 Välkomsttext
 
@@ -13,6 +13,8 @@ Välkomsttext
 ```
 
 ---
+
+## Menu Routes
 
 ### GET /api/menu
 
@@ -303,7 +305,7 @@ Tar bort en användare. Om en användare tas bort, raderas också dess orders oc
   "error": "Användare hittades inte"
 }
 ```
-
+---
 ## Middleware
 
 ### POST /api/orders
@@ -365,7 +367,7 @@ Skapar en ny order och använder validateOrder middleware för att säkerställa
 ```json
 { "error": "Något gick fel i valideringen" }
 ```
-
+---
 
 
 
