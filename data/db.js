@@ -6,6 +6,11 @@ const db = new Database(process.env.DB_PATH);
 //test
 
 db.exec(`
+  DELETE FROM order_items;
+  DELETE FROM orders;
+  DELETE FROM users;
+  DELETE FROM menu;
+  
   CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,
   username TEXT NOT NULL,
