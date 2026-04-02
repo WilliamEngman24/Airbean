@@ -238,16 +238,26 @@ Alla fält är obligatoriska.
 
 ---
 
-### PUT /api/users/:id
+### PATCH /api/users/:id
 
-Uppdaterar användarinformation.
+Uppdaterar användarinformation. Både username och email kan ändras separat eller på samma gång.
+
+**Sparad användare**
+
+```json
+{
+  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+  "username": "old_user",
+  "email": "old@gmail.com",
+  "user_date": "2026-03-30T11:40:23.845Z"
+}
+```
 
 **Body:**
 
 ```json
 {
-  "username": "old_user",
-  "email": "old@gmail.com"
+  "username": "updated_user"
 }
 ```
 
@@ -257,7 +267,7 @@ Uppdaterar användarinformation.
 {
   "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
   "username": "updated_user",
-  "email": "updated@gmail.com",
+  "email": "old@gmail.com",
   "user_date": "2026-03-30T11:40:23.845Z"
 }
 ```
