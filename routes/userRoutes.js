@@ -1,78 +1,56 @@
 import { Router } from "express";
 import { v4 as uuidv4 } from "uuid";
 import db from "../data/db.js";
-
-//new test for dev branch
+import { validateUserCheck, validateUserCreate, validateUserUpdate } from "../middleware/validateUser.js";
 
 const router = Router ();
 
 router.get('/', (_req, res) => {
-    try {
-        const users = db.prepare('SELECT id, username, email, user_date FROM users').all();
+    const users = db.prepare('SELECT id, username, email, user_date FROM users').all();
 
-        if (!users || users.length === 0) {
-            throw new Error();
-        }
-
-        res.status(200).json(users);
-
-    } catch (error) {
-        res.status(500).json({ error: 'Kunde inte hämta alla användare' });
+    if (!users) {
+        return res.status(500).json({ error: 'Kunde inte hämta alla användare' });
     }
+
+    res.status(200).json(users);
 });
 
-router.get('/:id', (req, res) => {
-    try {
-        const id = req.params.id;
-    
-        const user = db.prepare('SELECT id, username, email, user_date FROM users WHERE id = ?').get(id);
+router.get('/:id', validateUserCheck, (req, res) => {
 
-        if (!user) {
-            throw new Error();
-        }
+    res.status(200).json(req.user);
 
-        res.status(201).json(user);
-
-    } catch (error) {
-        res.status(404).json({ error: 'Kunde inte hämta denna användare' });
-    }
 });
 
-router.post('/', (req, res) => {
+router.post('/', validateUserCreate, (req, res) => {
 
-    try {
-        //can use req.body to access the data sent in the request body because of the express.json() middleware
-        const { username, email } = req.body; //destructuring
+    const { username, email } = req.body; //destructuring
 
-        console.log('Received data:', { username, email }); //log the received data for debugging
+    console.log('Received data:', { username, email }); //log the received data for debugging
 
-        if (!username || !email) {
-            throw new Error();
-        }
-
-        const user_date = new Date().toISOString();
-
-        const id = uuidv4(); //generate unique id for the new user using uuid library
-
-        const stmt = db.prepare(`
-            INSERT INTO users (id, username, email, user_date)
-            VALUES (?, ?, ?, ?)
-            `)
-
-        stmt.run(id, username, email, user_date);
-
-        const newUser = db
-        .prepare('SELECT id, username, email, user_date FROM users WHERE id = ?')
-        .get(id); 
-
-        res.status(201).json(newUser);
-
-    } catch (error) {
-        res.status(400).json({ error: 'Kunde inte skapa användare. Alla fält måste fyllas i.' });
+    if (!username || !email) {
+        return res.status(400).json({ error: 'Kunde inte skapa användare. Alla fält måste fyllas i.' });
     }
+
+    const user_date = new Date().toISOString();
+
+    const id = uuidv4(); //generate unique id for the new user using uuid library
+
+    const stmt = db.prepare(`
+        INSERT INTO users (id, username, email, user_date)
+        VALUES (?, ?, ?, ?)
+        `)
+
+    stmt.run(id, username, email, user_date);
+
+    const newUser = db
+    .prepare('SELECT id, username, email, user_date FROM users WHERE id = ?')
+    .get(id); 
+
+    res.status(201).json(newUser);
+
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateUserUpdate, (req, res) => {
     const id = req.params.id;
 
     const { username, email } = req.body; //destructuring
