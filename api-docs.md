@@ -1,6 +1,5 @@
 # Airbean API – Dokumentation
 
-## MenuRoutes
 ### GET /api
 
 Välkomsttext
@@ -74,18 +73,11 @@ Hämtar hela kaffemenyn
     "error": "Ett oväntat fel uppstod"
 }
 ```
-**Fel:** `401 Unauthorized`
-```json
-{
-    "error": "Invalid API key"
-}
-```
-
 ---
 
 ### GET /api/menu/:id
 
-Hämtar ett specifikt id-nr från menyn
+Hämtar ett specifikt meny id-nr
 
 **Svar:** `200 OK`
 ```json
@@ -107,12 +99,6 @@ Hämtar ett specifikt id-nr från menyn
 ```json
 {
     "error": "Ett oväntat fel uppstod"
-}
-```
-**Fel:** `401 Unauthorized`
-```json
-{
-    "error": "Invalid API key"
 }
 ```
 
@@ -152,6 +138,7 @@ Hämtar ett specifikt id-nr från menyn
 
 **Svar:** `204 No Content`
 **Fel:** `404 Not Found`
+
 
 ## User Routes
 
