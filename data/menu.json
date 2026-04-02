@@ -35,6 +35,12 @@
       "title":"Cortado",
       "desc":"Bryggd på månadens bönor.",
       "price":39
+    },
+    {
+      "id":"7",
+      "title":"Kanelbulle",
+      "desc":"Ja, det är en bulle helt enkelt.",
+      "price":25
     }
   ]
 }
