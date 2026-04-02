@@ -22,7 +22,7 @@ db.exec(`
 
   CREATE TABLE IF NOT EXISTS orders (
   id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
+  user_id TEXT,
   total_price REAL NOT NULL,
   ETA REAL NOT NULL,
   order_date TEXT,
