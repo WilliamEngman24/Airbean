@@ -2,6 +2,7 @@ import { Router } from "express";
 import { v4 as uuidv4 } from "uuid";
 import db from "../data/db.js";
 import validateOrder from "../middleware/validateOrder.js";
+import { calculateDiscount } from "../services/discountLogic.js";
 
 const router = Router();
 
@@ -79,15 +80,24 @@ router.post("/", validateOrder, (req, res) => {
         return res.status(400).json({ error: "Items saknas" });
     }
 
-    let totalPrice = 0;
+    const cart = [];
 
     for (const item of items) {
         const product = db
             .prepare("SELECT * FROM menu WHERE id = ?")
             .get(item.product_id);
 
-        totalPrice += product.price * item.quantity;
+        cart.push({
+            name: product.title,
+            price: product.price,
+            quantity: item.quantity
+        });
     }
+
+    const {totalPreDiscount, totalPostDiscount, discountAmount, discountTypes }
+        = calculateDiscount(cart);
+
+    const totalPrice = totalPostDiscount;
 
     const orderId = uuidv4();
     const eta = 15 + items.length * 2;
@@ -118,7 +128,11 @@ router.post("/", validateOrder, (req, res) => {
             message: "Order skapad",
             order_id: orderId,
             total_price: totalPrice,
-            eta
+            total_before_discount: totalPreDiscount,
+            discount_amount: discountAmount,
+            discount_types: discountTypes,
+            eta,
+            all_items: cart
         });
     } catch (error) {
         res.status(500).json({ error: "Kunde inte skapa order" });
