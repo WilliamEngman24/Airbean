@@ -21,7 +21,9 @@ router.get('/:id', validateUserCheck, (req, res) => {
 
 });
 
-router.post('/', validateUserCreate, (_req, res) => {
+router.post('/', validateUserCreate, (req, res) => {
+
+    const { username, email } = req.body;
 
     const user_date = new Date().toISOString();
 
@@ -41,15 +43,17 @@ router.post('/', validateUserCreate, (_req, res) => {
     res.status(201).json(newUser);
 });
 
-router.put('/:id', validateUserCheck, validateUserUpdate, (_req, res) => {
+router.patch('/:id', validateUserCheck, validateUserUpdate, (req, res) => {
 
-    const stmt = db.prepare(`
+    const id = req.params.id;
+
+    const { username, email } = req.body;
+
+    db.prepare(`
         UPDATE users
-        SET username = ?, email = ?
+        SET username = COALESCE(?, username), email = COALESCE(?, email)
         WHERE id = ?
-    `);
-
-    stmt.run(username, email, id);
+    `).run(username, email, id);
 
     const updateUser = db.prepare('SELECT id, username, email, user_date FROM users WHERE id = ?').get(id);
     res.json(updateUser);
