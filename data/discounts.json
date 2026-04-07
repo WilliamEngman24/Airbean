@@ -1,0 +1,19 @@
+{
+    "discounts": [
+        {
+            "id": "95205af1-646b-45f6-8bed-bcd0ee67adc1",
+            "title": "Two Latte Discount",
+            "amount": 20
+        },
+        {
+            "id": "95205af1-646b-45f6-8bed-bcd0ee67adc2",
+            "title": "Latte Combo Discount",
+            "amount": 15
+        },
+        {
+            "id": "95205af1-646b-45f6-8bed-bcd0ee67adc3",
+            "title": "Bun and Coffee Combo Discount",
+            "amount":  20
+        }
+    ]
+}

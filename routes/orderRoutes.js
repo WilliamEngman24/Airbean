@@ -8,6 +8,11 @@ const router = Router();
 
 router.get("/", (_req, res) => {
     const orders = db.prepare("SELECT * FROM orders").all();
+
+    if (!orders) {
+        return res.status(500).json({ error: "Kunde inte hämta alla beställningar" });
+    }
+
     res.json(orders);
 });
 
@@ -48,6 +53,10 @@ router.get("/user/:userId", (req, res) => {
         .prepare("SELECT * FROM orders WHERE user_id = ? ORDER BY order_date DESC")
         .all(userId);
 
+    if (!orders) {
+        return res.status(404).json({ error: "Inga beställningar hittade för denna användare" });
+    }
+
     res.json(orders);
 });
 
@@ -70,7 +79,16 @@ router.get("/:id", (req, res) => {
         WHERE order_items.order_id = ?
     `).all(id);
 
-    res.json({ order, items });
+    const discountItems = db.prepare(`
+        SELECT 
+            id,
+            order_id,
+            discount_id
+        FROM discount_items
+        WHERE discount_items.order_id = ?
+    `).all(id);
+
+    res.json({ order, items, discountItems });
 });
 
 router.post("/", validateOrder, (req, res) => {
@@ -114,7 +132,7 @@ router.post("/", validateOrder, (req, res) => {
     `);
 
     const insertDiscountItem = db.prepare(`
-        INSERT INTO discounts_items (id, order_id, discount_id)
+        INSERT INTO discount_items (id, order_id, discount_id)
         VALUES (?, ?, ?)
     `);
 
@@ -145,7 +163,7 @@ router.post("/", validateOrder, (req, res) => {
             all_items: cart
         });
     } catch (error) {
-        res.status(500).json({ error: "Kunde inte skapa order" });
+        res.status(400).json({ error: "Kunde inte skapa order" });
     }
 });
 

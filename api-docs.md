@@ -305,38 +305,210 @@ Tar bort en användare. Om en användare tas bort, raderas också dess orders oc
   "error": "Användare hittades inte"
 }
 ```
+## Order Routes
+
+### GET /api/orders
+
+Hämtar alla beställningar.
+
+**Svar:** `200 OK`
+
+```json
+[
+  {
+    "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+    "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+    "total_price": 93,
+    "ETA": 17,
+    "order_date": "2026-04-02T08:30:04.699Z"
+  }
+]
+```
+
+**Fel:** `500 Internal Server Error`
+
+```json
+{ "error": "Kunde inte hämta alla beställningar" }
+```
+
 ---
-## Middleware
 
-### POST /api/orders
+### GET /api/orders/status/:id
 
-Skapar en ny order och använder validateOrder middleware för att säkerställa att innehållet är korrekt och att produkterna finns i databasen.
+Hämtar en specifik beställning.
+
+**Svar:** `200 OK`
+
+```json
+{
+  "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+  "ETA": 17,
+  "minutes_left": 0
+}
+```
+
+**Fel:** `404 Not Found`
+
+```json
+{ "error": "Order inte hittad" }
+```
+
+### GET /api/orders/users/:userId
+
+Hämtar alla beställningar för en användare.
+
+**Svar:** `200 OK`
+
+```json
+{
+  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+  "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+  "total_price": 93,
+  "ETA": 17,
+  "order_date": "2026-04-02T08:30:04.699Z"
+}
+```
+
+**Fel:** `404 Not Found`
+
+```json
+{ "error": "Inga beställningar hittade för denna användare" }
+```
+
+### GET /api/orders/:id
+
+Hämtar information om en beställning.
+
+**Svar:** `200 OK`
+
+```json
+{
+  "order": {
+      "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+      "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+      "total_price": 93,
+      "ETA": 17,
+      "order_date": "2026-04-02T08:30:04.699Z"
+  },
+  "items": [
+      {
+          "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfp",
+          "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+          "product_id": "7",
+          "quantity": 1
+      },
+      {
+          "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfl",
+          "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+          "product_id": "5",
+          "quantity": 2
+      }
+  ],
+  "discountItems": [
+      {
+          "id": "95205af1-646b-45f6-8bed-bcd0ee67xyz1",
+          "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+          "discount_id": "95205af1-646b-45f6-8bed-bcd0ee67adc1"
+      },
+      {
+          "id": "95205af1-646b-45f6-8bed-bcd0ee67xyz2",
+          "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+          "discount_id": "95205af1-646b-45f6-8bed-bcd0ee67adc3"
+      }
+  ]
+}
+```
+
+**Fel:** `404 Not Found`
+
+```json
+{ "error": "Order not found" }
+```
+
+### POST /api/orders/
+
+Skapar en ny beställning,
 
 **Body:**
 
 ```json
 {
-  "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfa",
+  "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
   "items": [
     {
-      "product_id": "1",
-      "quantity": 1,
-      "price": 39
+      "product_id": "5",
+      "quantity": 2
+    },
+    {
+      "product_id": "4",
+      "quantity": 1
+    },
+    {
+      "product_id": "7",
+      "quantity": 1
     }
   ]
 }
 ```
+
+Alla fält är obligatoriska.
 
 **Svar:** `201 Created`
 
 ```json
 {
   "message": "Order skapad",
-  "order_id": "dfa0096d-2c22-408d-88e2-bf596f235bf4",
-  "total_price": 39,
-  "eta": 17
+  "order_id": "9d27fa5e-d34a-45f0-b599-21953055eff4",
+  "total_price": 127,
+  "total_before_discount": 182,
+  "discount_amount": 55,
+  "eta": 21,
+  "discount_types": [
+      {
+          "id": "95205af1-646b-45f6-8bed-bcd0ee67adc1",
+          "title": "Two Latte Discount",
+          "amount": 20
+      },
+      {
+          "id": "95205af1-646b-45f6-8bed-bcd0ee67adc2",
+          "title": "Latte Combo Discount",
+          "amount": 15
+      },
+      {
+          "id": "95205af1-646b-45f6-8bed-bcd0ee67adc3",
+          "title": "Bun and Coffee Combo Discount",
+          "amount": 20
+      }
+  ],
+  "all_items": [
+      {
+          "name": "Kaffe Latte",
+          "price": 54,
+          "quantity": 2
+      },
+      {
+          "name": "Latte Macchiato",
+          "price": 49,
+          "quantity": 1
+      },
+      {
+          "name": "Kanelbulle",
+          "price": 25,
+          "quantity": 1
+      }
+  ]
 }
 ```
+
+**Fel:**
+
+Se middleware POST /api/orders
+
+## Middleware
+
+### POST /api/orders
+
+Skapar en ny order och använder validateOrder middleware för att säkerställa att innehållet är korrekt och att produkterna finns i databasen.
 
 **Fel:** 
 `400 Bad Request`

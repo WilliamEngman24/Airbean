@@ -1,0 +1,14 @@
+{
+    "discount_items": [
+        {
+            "id": "95205af1-646b-45f6-8bed-bcd0ee67xyz1",
+            "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+            "discount_id": "95205af1-646b-45f6-8bed-bcd0ee67adc1"
+        },
+        {
+            "id": "95205af1-646b-45f6-8bed-bcd0ee67xyz2",
+            "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+            "discount_id": "95205af1-646b-45f6-8bed-bcd0ee67adc3"
+        }
+    ]
+}

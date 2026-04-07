@@ -4,10 +4,6 @@ import fs from "fs";
 const db = new Database(process.env.DB_PATH);
 
 db.exec(`
-  DELETE FROM order_items;
-  DELETE FROM orders;
-  DELETE FROM users;
-  DELETE FROM menu;
   
   CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,
@@ -43,18 +39,24 @@ db.exec(`
 
   CREATE TABLE IF NOT EXISTS discounts (
   id TEXT PRIMARY KEY,
-  name TEXT NOT NULL,
+  title TEXT NOT NULL,
   amount REAL NOT NULL
   );
 
-  CREATE TABLE IF NOT EXISTS discounts_items (
+  CREATE TABLE IF NOT EXISTS discount_items (
   id TEXT PRIMARY KEY,
   order_id TEXT NOT NULL,
   discount_id TEXT NOT NULL,
-  amount REAL NOT NULL,
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
   FOREIGN KEY (discount_id) REFERENCES discounts(id) ON DELETE CASCADE
   );
+
+  DELETE FROM order_items;
+  DELETE FROM orders;
+  DELETE FROM users;
+  DELETE FROM menu;
+  DELETE FROM discounts;
+  DELETE FROM discount_items;
   `);
 
 //------ Menu data ------
@@ -151,6 +153,46 @@ if (orderItemsCheck.count === 0) {
     );
   });
   insertAllOrderItems(order_items);
+}
+
+//------ Discounts data ---------
+const { discounts } = JSON.parse(
+  fs.readFileSync("./data/discounts.json", "utf-8"),
+);
+
+const insertDiscounts = db.prepare(`
+  INSERT INTO discounts (id, title, amount) VALUES (?, ?, ?)
+`);
+
+const discountCheck = db.prepare("SELECT COUNT(*) AS count FROM discounts").get();
+
+if (discountCheck.count === 0) {
+  const insertAllDiscounts = db.transaction((items) => {
+    items.forEach((item) =>
+      insertDiscounts.run(item.id, item.title, item.amount),
+    );
+  });
+  insertAllDiscounts(discounts);
+}
+
+//------ Discounts items data ---------
+const { discount_items } = JSON.parse(
+  fs.readFileSync("./data/discount_items.json", "utf-8"),
+);
+
+const insertDiscountItems = db.prepare(`
+  INSERT INTO discount_items (id, order_id, discount_id) VALUES (?, ?, ?)
+`);
+
+const discountItemsCheck = db.prepare("SELECT COUNT(*) AS count FROM discount_items").get();
+
+if (discountItemsCheck.count === 0) {
+  const insertAllDiscountItems = db.transaction((items) => {
+    items.forEach((item) =>
+      insertDiscountItems.run(item.id, item.order_id, item.discount_id),
+    );
+  });
+  insertAllDiscountItems(discount_items);
 }
 
 export default db;
