@@ -164,6 +164,7 @@ router.post("/", validateOrder, (req, res) => {
             all_items: cart
         });
     } catch (error) {
+        console.error("Error creating order:", error);
         res.status(400).json({ error: "Kunde inte skapa order" });
     }
 });

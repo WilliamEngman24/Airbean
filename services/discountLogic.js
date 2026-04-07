@@ -17,14 +17,14 @@ export function calculateDiscount(cart) {
     //discount for 2 or more latte, 20kr off total price
     if (latte && latte.quantity >= 2) {
         totalPostDiscount -= 20;
-        discountTypes.push({ id: "95205af1-646b-45f6-8bed-bcd0ee67adc1", title: 'Two Latte Discount', amount: 20 });
+        discountTypes.push({ id: "1b7d3e9a-2c4f-4e33-9c8a-7f2b1d6e4a11", title: 'Two Latte Discount', amount: 20 });
     }
 
     //discount for buying the different latte types together
     const latteCombo = new Set(cart.map(item => item.name));
     if (latteCombo.has('Kaffe Latte') && latteCombo.has('Latte Macchiato')){
         totalPostDiscount -= 15;
-        discountTypes.push({ id: "95205af1-646b-45f6-8bed-bcd0ee67adc2",title: 'Latte Combo Discount', amount: 15 });
+        discountTypes.push({ id: "6f2a9c1d-3b7e-4f22-a5d9-8c1e3b7a2d22",title: 'Latte Combo Discount', amount: 15 });
     }
 
     //bun and coffee combo discount. can make more efficient if adding field to all menu items to have 'category'
@@ -34,7 +34,7 @@ export function calculateDiscount(cart) {
 
     if (hasBun && hasCoffee){
         totalPostDiscount -= 20;
-        discountTypes.push({ id: "95205af1-646b-45f6-8bed-bcd0ee67adc3", title: 'Bun and Coffee Combo Discount', amount: 20 });
+        discountTypes.push({ id: "e3b1a7d9-5c2f-4a11-b9e3-6d7c2f1a8b33", title: 'Bun and Coffee Combo Discount', amount: 20 });
     }
 
     //if somhow total becomes minus then set to 0

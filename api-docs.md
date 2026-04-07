@@ -25,40 +25,46 @@ Hämtar hela kaffemenyn
 ```json
 [
   {
-    "id": "1",
+    "id": "a3f1c9d2-7b4e-4a91-9c3e-2d8f6b5a1e77",
     "title": "Bryggkaffe",
     "desc": "Bryggd på månadens bönor.",
     "price": 39
   },
   {
-    "id": "2",
+    "id": "5d2a7f8c-1b3e-4c6a-8f92-0e4d9a7c3b11",
     "title": "Caffè Doppio",
     "desc": "Bryggd på månadens bönor.",
     "price": 49
   },
   {
-    "id": "3",
+    "id": "9b7e2c1d-6f3a-4d88-a1c5-3e9f7b2a6c44",
     "title": "Cappuccino",
     "desc": "Bryggd på månadens bönor.",
     "price": 49
   },
   {
-    "id": "4",
+    "id": "2f8a1d3c-5b7e-4e91-b2d6-8c3f1a9e7d55",
     "title": "Latte Macchiato",
     "desc": "Bryggd på månadens bönor.",
     "price": 49
   },
   {
-    "id": "5",
+    "id": "c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66",
     "title": "Kaffe Latte",
     "desc": "Bryggd på månadens bönor.",
     "price": 54
   },
   {
-    "id": "6",
+    "id": "7e3b2c1a-9d4f-4a77-b8c1-6f2e3d9a5b77",
     "title": "Cortado",
     "desc": "Bryggd på månadens bönor.",
     "price": 39
+  },
+  {
+    "id":"4c9a2f7d-1e3b-4b66-a9d2-5f7c3e1a8b88",
+    "title":"Kanelbulle",
+    "desc":"Ja, det är en bulle helt enkelt.",
+    "price":25
   }
 ]
 ```
@@ -84,7 +90,7 @@ Hämtar ett specifikt meny id-nr
 **Svar:** `200 OK`
 ```json
 {
-    "id": "5",
+    "id": "c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66",
     "title": "Kaffe Latte",
     "desc": "Bryggd på månadens bönor.",
     "price": 54
@@ -104,44 +110,6 @@ Hämtar ett specifikt meny id-nr
 }
 ```
 
----
-
-### POST /api/beans
-
-[Vad endpointen gör]
-
-**Body:**
-
-```json
-{
-  "fält1": "värde",
-  "fält2": "värde"
-}
-```
-
-**Svar:** `201 Created`
-**Fel:** `400 Bad Request`
-
----
-
-### PUT /api/beans/:id
-
-[Vad endpointen gör]
-
-**Body:** [samma som POST]
-**Svar:** `200 OK`
-**Fel:** `404 Not Found` | `400 Bad Request`
-
----
-
-### DELETE /api/beans/:id
-
-[Vad endpointen gör]
-
-**Svar:** `204 No Content`
-**Fel:** `404 Not Found`
-
-
 ## User Routes
 
 ### GET /api/users
@@ -153,21 +121,21 @@ Hämtar alla användare.
 ```json
 [
   {
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+  "id": "2a3b4c5d-6e7f-4e77-9a8b-1c2d3e4f5a77",
   "username": "old_user",
   "email": "old@example.com",
   "user_date": "2026-03-30T11:40:23.845Z"
   },
   {
-  "id": "b8c9d0e1-f2g3-h4i5-j6k7-l8m9n0o1p2q3",
+  "id": "b7c6d5e4-3f2a-4f66-a9b8-7e6d5c4b3a88",
   "username": "John_Smith",
   "email": "notai@example.com",
   "user_date": "2026-03-30T11:40:23.845Z"
   },
   {
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfa",
+  "id": "f1e2d3c4-b5a6-4a55-8c7d-9e0f1a2b3c99",
   "username": "Jane_Doe",
-  "email": "mightbeai@example.com",
+  "email": "maybeai@example.com",
   "user_date": "2026-03-30T11:40:23.845Z"
   }
 ]
@@ -189,7 +157,7 @@ Hämtar en specifik användare.
 
 ```json
 {
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+  "id": "b7c6d5e4-3f2a-4f66-a9b8-7e6d5c4b3a88",
   "username": "John_Smith",
   "email": "notanai@example.com",
   "user_date": "2026-03-30T11:40:23.845Z"
@@ -223,7 +191,7 @@ Alla fält är obligatoriska.
 
 ```json
 {
-  "id": "468f758c-ab3e-4b2a-83d6-7214c79eb7a6",
+  "id": "6f4c2d91-8a3e-4b7f-9c12-5d8e1a6b4f90",
   "username": "new_person",
   "email": "newemail@gmail.com",
   "user_date": "2026-04-01T10:06:29.197Z"
@@ -248,7 +216,7 @@ Uppdaterar användarinformation. Både username och email kan ändras separat el
 
 ```json
 {
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+  "id": "2a3b4c5d-6e7f-4e77-9a8b-1c2d3e4f5a77",
   "username": "old_user",
   "email": "old@gmail.com",
   "user_date": "2026-03-30T11:40:23.845Z"
@@ -267,7 +235,7 @@ Uppdaterar användarinformation. Både username och email kan ändras separat el
 
 ```json
 {
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+  "id": "2a3b4c5d-6e7f-4e77-9a8b-1c2d3e4f5a77",
   "username": "updated_user",
   "email": "old@gmail.com",
   "user_date": "2026-03-30T11:40:23.845Z"
@@ -316,8 +284,8 @@ Hämtar alla beställningar.
 ```json
 [
   {
-    "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
-    "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+    "id": "9c8b7a6d-5e4f-4d88-b3a2-1f0e9d8c7b66",
+    "user_id": "2a3b4c5d-6e7f-4e77-9a8b-1c2d3e4f5a77",
     "total_price": 93,
     "ETA": 17,
     "order_date": "2026-04-02T08:30:04.699Z"
@@ -341,7 +309,7 @@ Hämtar en specifik beställning.
 
 ```json
 {
-  "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
+  "order_id": "9c8b7a6d-5e4f-4d88-b3a2-1f0e9d8c7b66",
   "ETA": 17,
   "minutes_left": 0
 }
@@ -361,8 +329,8 @@ Hämtar alla beställningar för en användare.
 
 ```json
 {
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
-  "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+  "id": "9c8b7a6d-5e4f-4d88-b3a2-1f0e9d8c7b66",
+  "user_id": "a3b4c5d-6e7f-4e77-9a8b-1c2d3e4f5a77",
   "total_price": 93,
   "ETA": 17,
   "order_date": "2026-04-02T08:30:04.699Z"
@@ -384,36 +352,36 @@ Hämtar information om en beställning.
 ```json
 {
   "order": {
-      "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
-      "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+      "id": "9c8b7a6d-5e4f-4d88-b3a2-1f0e9d8c7b66",
+      "user_id": "2a3b4c5d-6e7f-4e77-9a8b-1c2d3e4f5a77",
       "total_price": 93,
       "ETA": 17,
       "order_date": "2026-04-02T08:30:04.699Z"
   },
   "items": [
       {
-          "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfp",
-          "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
-          "product_id": "7",
+          "id": "3d9a7c1b-8e2f-4b00-a1c7-5f3e9d2a6c44",
+          "order_id": "9c8b7a6d-5e4f-4d88-b3a2-1f0e9d8c7b66",
+          "product_id": "4c9a2f7d-1e3b-4b66-a9d2-5f7c3e1a8b88",
           "quantity": 1
       },
       {
-          "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfl",
-          "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
-          "product_id": "5",
+          "id": "0f1e2d3c-4b5a-4c99-8d7e-6a5b4c3d2e55",
+          "order_id": "9c8b7a6d-5e4f-4d88-b3a2-1f0e9d8c7b66",
+          "product_id": "c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66",
           "quantity": 2
       }
   ],
   "discountItems": [
       {
-          "id": "95205af1-646b-45f6-8bed-bcd0ee67xyz1",
-          "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
-          "discount_id": "95205af1-646b-45f6-8bed-bcd0ee67adc1"
+          "id": "d2e7a1c9-6b4f-4c55-8a3d-9f1e2b7c6d99",
+          "order_id": "9c8b7a6d-5e4f-4d88-b3a2-1f0e9d8c7b66",
+          "discount_id": "1b7d3e9a-2c4f-4e33-9c8a-7f2b1d6e4a11"
       },
       {
-          "id": "95205af1-646b-45f6-8bed-bcd0ee67xyz2",
-          "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
-          "discount_id": "95205af1-646b-45f6-8bed-bcd0ee67adc3"
+          "id": "8a3c1f2e-7d9b-4d44-b6a1-2e7c9f3a5b00",
+          "order_id": "9c8b7a6d-5e4f-4d88-b3a2-1f0e9d8c7b66",
+          "discount_id": "e3b1a7d9-5c2f-4a11-b9e3-6d7c2f1a8b33"
       }
   ]
 }
@@ -433,18 +401,18 @@ Skapar en ny beställning,
 
 ```json
 {
-  "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+  "user_id": "2a3b4c5d-6e7f-4e77-9a8b-1c2d3e4f5a77",
   "items": [
     {
-      "product_id": "5",
+      "product_id": "c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66",
       "quantity": 2
     },
     {
-      "product_id": "4",
+      "product_id": "2f8a1d3c-5b7e-4e91-b2d6-8c3f1a9e7d55",
       "quantity": 1
     },
     {
-      "product_id": "7",
+      "product_id": "4c9a2f7d-1e3b-4b66-a9d2-5f7c3e1a8b88",
       "quantity": 1
     }
   ]
@@ -458,24 +426,24 @@ Alla fält är obligatoriska.
 ```json
 {
   "message": "Order skapad",
-  "order_id": "9d27fa5e-d34a-45f0-b599-21953055eff4",
+  "order_id": "189d68fc-0f5e-4cd9-956e-42ccf0ef319c",
   "total_price": 127,
   "total_before_discount": 182,
   "discount_amount": 55,
   "eta": 21,
   "discount_types": [
       {
-          "id": "95205af1-646b-45f6-8bed-bcd0ee67adc1",
+          "id": "1b7d3e9a-2c4f-4e33-9c8a-7f2b1d6e4a11",
           "title": "Two Latte Discount",
           "amount": 20
       },
       {
-          "id": "95205af1-646b-45f6-8bed-bcd0ee67adc2",
+          "id": "6f2a9c1d-3b7e-4f22-a5d9-8c1e3b7a2d22",
           "title": "Latte Combo Discount",
           "amount": 15
       },
       {
-          "id": "95205af1-646b-45f6-8bed-bcd0ee67adc3",
+          "id": "e3b1a7d9-5c2f-4a11-b9e3-6d7c2f1a8b33",
           "title": "Bun and Coffee Combo Discount",
           "amount": 20
       }
