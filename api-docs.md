@@ -308,6 +308,25 @@ Tar bort en användare. Om en användare tas bort, raderas också dess orders oc
 ---
 ## Middleware
 
+### API-nyckel requireApiKey.js
+
+**Body:**
+
+```json
+{
+  x-api-key: <din_nyckel>
+}
+```
+
+**Fel:** 
+`401 Unauthorized`
+
+```json
+{ "error": "Invalid API key" }
+```
+
+## validateOrder.js
+
 ### POST /api/orders
 
 Skapar en ny order och använder validateOrder middleware för att säkerställa att innehållet är korrekt och att produkterna finns i databasen.
