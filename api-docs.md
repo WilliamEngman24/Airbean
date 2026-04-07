@@ -388,7 +388,7 @@ Skapar en ny order och använder validateOrder middleware för att säkerställa
 ```
 ---
 
-## validateOrder.js
+## validateUser.js
 
 ### GET /:id
 
