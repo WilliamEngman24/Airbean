@@ -116,4 +116,3 @@ router.post("/", validateOrder, (req, res) => {
 
 export default router;
 
-console.log(req.validatedItems);
