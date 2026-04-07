@@ -310,7 +310,7 @@ Tar bort en användare. Om en användare tas bort, raderas också dess orders oc
 
 ### API-nyckel requireApiKey.js
 
-**Body:**
+**Header:**
 
 ```json
 {
@@ -388,14 +388,38 @@ Skapar en ny order och använder validateOrder middleware för att säkerställa
 ```
 ---
 
+## validateOrder.js
 
+### GET /:id
 
+Hämta specifik användare
 
+**Fel:** 
+`404 Internal Server Error`
 
+```json
+{ "error": "Kunde inte hämta denna användare" }
+```
 
+### POST
 
+Skapa användare 
 
+**Fel:** 
+`400 Bad Request`
 
+```json
+{ "error": "Kunde inte skapa användare. Alla fält måste fyllas i." }
+```
 
+### PUT /:id
 
+Uppdatera användare
+
+**Fel:** 
+`400 Bad Request`
+
+```json
+{ "error": "Kunde inte uppdatera användare. Något fält måste fyllas i." }
+```
 
