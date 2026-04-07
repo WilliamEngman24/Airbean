@@ -107,8 +107,10 @@ router.post("/", validateOrder, (req, res) => {
             .get(item.product_id);
 
         cart.push({
+            id: item.product_id,
             name: product.title,
             price: product.price,
+            category: product.category,
             quantity: item.quantity
         });
     }

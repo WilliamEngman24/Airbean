@@ -16,6 +16,7 @@ db.exec(`
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
   desc TEXT,
+  category TEXT,
   price REAL NOT NULL
   );
 
@@ -60,7 +61,7 @@ const { menu } = JSON.parse(fs.readFileSync("./data/menu.json", "utf-8"));
 
 //prapare statement
 const insertMenu = db.prepare(`
-    INSERT INTO menu (id, title, desc, price) VALUES (?, ?, ?, ?)
+    INSERT INTO menu (id, title, desc, category, price) VALUES (?, ?, ?, ?, ?)
   `);
 
 //check if menu is empty or not
@@ -71,7 +72,7 @@ const menuCheck = db.prepare("SELECT COUNT(*) AS count FROM menu").get();
 if (menuCheck.count === 0) {
   const insertAllMenu = db.transaction((items) => {
     items.forEach((item) =>
-      insertMenu.run(item.id, item.title, item.desc, item.price),
+      insertMenu.run(item.id, item.title, item.desc, item.category, item.price),
     );
   });
   insertAllMenu(menu);
