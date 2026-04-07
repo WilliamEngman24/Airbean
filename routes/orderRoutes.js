@@ -113,12 +113,22 @@ router.post("/", validateOrder, (req, res) => {
         VALUES (?, ?, ?, ?)
     `);
 
+    const insertDiscountItem = db.prepare(`
+        INSERT INTO discounts_items (id, order_id, discount_id)
+        VALUES (?, ?, ?)
+    `);
+
     const createOrder = db.transaction(() => {
         insertOrder.run(orderId, user_id || null, totalPrice, eta, orderDate);
 
         for (const item of items) {
             insertOrderItem.run(uuidv4(), orderId, item.product_id, item.quantity);
         }
+
+        for (const discount of discountTypes) {
+            insertDiscountItem.run(uuidv4(), orderId, discount.id);
+        }
+
     });
 
     try {
@@ -130,8 +140,8 @@ router.post("/", validateOrder, (req, res) => {
             total_price: totalPrice,
             total_before_discount: totalPreDiscount,
             discount_amount: discountAmount,
-            discount_types: discountTypes,
             eta,
+            discount_types: discountTypes,
             all_items: cart
         });
     } catch (error) {

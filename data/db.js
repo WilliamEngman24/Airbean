@@ -40,6 +40,21 @@ db.exec(`
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE, 
   FOREIGN KEY (product_id) REFERENCES menu(id) ON DELETE CASCADE
   );
+
+  CREATE TABLE IF NOT EXISTS discounts (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  amount REAL NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS discounts_items (
+  id TEXT PRIMARY KEY,
+  order_id TEXT NOT NULL,
+  discount_id TEXT NOT NULL,
+  amount REAL NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+  FOREIGN KEY (discount_id) REFERENCES discounts(id) ON DELETE CASCADE
+  );
   `);
 
 //------ Menu data ------
