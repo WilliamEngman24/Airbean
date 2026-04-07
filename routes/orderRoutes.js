@@ -23,11 +23,11 @@ router.get("/status/:id", (req, res) => {
     const now = new Date();
 
     const minutesPassed = Math.floor((now - orderTime) / 60000);
-    const minutesLeft = Math.max(order.ETA - minutesPassed, 0);
+    const minutesLeft = Math.max(order.eta - minutesPassed, 0);
 
     res.json({
         order_id: order.id,
-        ETA: order.ETA,
+        eta: order.eta,
         minutes_left: minutesLeft
     });
 });
@@ -65,20 +65,17 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", validateOrder, (req, res) => {
-    const { user_id, items } = req.body;
+    const { user_id } = req.body;
+    const items = req.validatedItems;
 
-    if (!items || !Array.isArray(items) || items.length === 0) {
+    if (!items || items.length === 0) {
         return res.status(400).json({ error: "Items saknas" });
     }
 
     let totalPrice = 0;
 
     for (const item of items) {
-        const product = db
-            .prepare("SELECT * FROM menu WHERE id = ?")
-            .get(item.product_id);
-
-        totalPrice += product.price * item.quantity;
+        totalPrice += item.price * item.quantity;
     }
 
     const orderId = uuidv4();
@@ -118,3 +115,5 @@ router.post("/", validateOrder, (req, res) => {
 });
 
 export default router;
+
+console.log(req.validatedItems);
