@@ -2,6 +2,7 @@ import { Router } from "express";
 import { v4 as uuidv4 } from "uuid";
 import db from "../data/db.js";
 import validateOrder from "../middleware/validateOrder.js";
+import validateID from "../middleware/validateID.js";
 import { calculateDiscount } from "../services/discountLogic.js";
 
 const router = Router();
@@ -9,14 +10,14 @@ const router = Router();
 router.get("/", (_req, res) => {
     const orders = db.prepare("SELECT * FROM orders").all();
 
-    if (!orders) {
+    if (orders.length === 0) {
         return res.status(500).json({ error: "Kunde inte hämta alla beställningar" });
     }
 
     res.json(orders);
 });
 
-router.get("/status/:id", (req, res) => {
+router.get("/status/:id", validateID("id"),(req, res) => {
     const id = req.params.id;
 
     const order = db.prepare("SELECT * FROM orders WHERE id = ?").get(id);
@@ -46,21 +47,21 @@ router.get("/status/:id", (req, res) => {
     });
 });
 
-router.get("/user/:userId", (req, res) => {
+router.get("/user/:userId", validateID("userId"), (req, res) => {
     const userId = req.params.userId;
 
     const orders = db
         .prepare("SELECT * FROM orders WHERE user_id = ? ORDER BY order_date DESC")
         .all(userId);
 
-    if (!orders) {
+    if (orders.length === 0) {
         return res.status(404).json({ error: "Inga beställningar hittade för denna användare" });
     }
 
     res.json(orders);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", validateID("id"), (req, res) => {
     const id = req.params.id;
 
     const order = db.prepare("SELECT * FROM orders WHERE id = ?").get(id);

@@ -1,15 +1,15 @@
 {
     "order_items": [
         {
-            "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfp",
-            "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
-            "product_id": "7",
+            "id": "3d9a7c1b-8e2f-4b00-a1c7-5f3e9d2a6c44",
+            "order_id": "9c8b7a6d-5e4f-4d88-b3a2-1f0e9d8c7b66",
+            "product_id": "4c9a2f7d-1e3b-4b66-a9d2-5f7c3e1a8b88",
             "quantity": 1
         },
         {
-            "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfl",
-            "order_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfh",
-            "product_id": "5",
+            "id": "0f1e2d3c-4b5a-4c99-8d7e-6a5b4c3d2e55",
+            "order_id": "9c8b7a6d-5e4f-4d88-b3a2-1f0e9d8c7b66",
+            "product_id": "c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66",
             "quantity": 2
         }
     ]

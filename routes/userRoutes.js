@@ -2,6 +2,7 @@ import { Router } from "express";
 import { v4 as uuidv4 } from "uuid";
 import db from "../data/db.js";
 import { validateUserCheck, validateUserCreate, validateUserUpdate } from "../middleware/validateUser.js";
+import validateID from "../middleware/validateID.js";
 
 const router = Router ();
 
@@ -15,7 +16,7 @@ router.get('/', (_req, res) => {
     res.status(200).json(users);
 });
 
-router.get('/:id', validateUserCheck, (req, res) => {
+router.get('/:id', validateID("id"), validateUserCheck, (req, res) => {
 
     res.status(200).json(req.user);
 
@@ -43,7 +44,7 @@ router.post('/', validateUserCreate, (req, res) => {
     res.status(201).json(newUser);
 });
 
-router.patch('/:id', validateUserCheck, validateUserUpdate, (req, res) => {
+router.patch('/:id', validateID("id"), validateUserCheck, validateUserUpdate, (req, res) => {
 
     const id = req.params.id;
 
@@ -59,7 +60,7 @@ router.patch('/:id', validateUserCheck, validateUserUpdate, (req, res) => {
     res.json(updateUser);
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateID("id"), (req, res) => {
     const id = req.params.id;
 
     const stmt = db.prepare('DELETE FROM users WHERE id = ?');

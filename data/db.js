@@ -51,12 +51,6 @@ db.exec(`
   FOREIGN KEY (discount_id) REFERENCES discounts(id) ON DELETE CASCADE
   );
 
-  DELETE FROM order_items;
-  DELETE FROM orders;
-  DELETE FROM users;
-  DELETE FROM menu;
-  DELETE FROM discounts;
-  DELETE FROM discount_items;
   `);
 
 //------ Menu data ------
