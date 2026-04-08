@@ -1,37 +1,29 @@
-import {Router } from "express";
+import { Router } from "express";
 import { v4 as uuidv4 } from "uuid";
 import db from "../data/db.js";
-
-//new test for dev branch
+import { validateUserCheck, validateUserCreate, validateUserUpdate } from "../middleware/validateUser.js";
 
 const router = Router ();
 
 router.get('/', (_req, res) => {
-    const users = db.prepare('SELECT * FROM users').all();
-    res.json(users);
+    const users = db.prepare('SELECT id, username, email, user_date FROM users').all();
+
+    if (!users) {
+        return res.status(500).json({ error: 'Kunde inte hämta alla användare' });
+    }
+
+    res.status(200).json(users);
 });
 
-router.get('/:id', (req, res) => {
-    const id = req.params.id;
-    
-    const user = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
-    
-    if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-    }
-    res.json(user);
+router.get('/:id', validateUserCheck, (req, res) => {
+
+    res.status(200).json(req.user);
+
 });
 
-router.post('/', (req, res) => {
+router.post('/', validateUserCreate, (req, res) => {
 
-    //can use req.body to access the data sent in the request body because of the express.json() middleware
-    const { username, email } = req.body; //destructuring
-
-    console.log('Received data:', { username, email }); //log the received data for debugging
-
-    if (!username || !email) {
-        return res.status(400).json({ error: 'Name and email are required' });
-    }
+    const { username, email } = req.body;
 
     const user_date = new Date().toISOString();
 
@@ -45,33 +37,25 @@ router.post('/', (req, res) => {
     stmt.run(id, username, email, user_date);
 
     const newUser = db
-    .prepare('SELECT * FROM users WHERE id = ?')
+    .prepare('SELECT id, username, email, user_date FROM users WHERE id = ?')
     .get(id); 
 
     res.status(201).json(newUser);
 });
 
-router.put('/:id', (req, res) => {
+router.patch('/:id', validateUserCheck, validateUserUpdate, (req, res) => {
+
     const id = req.params.id;
 
-    //example of avoid using destructuring
-    if (!req.body.username || !req.body.email) {
-        return res.status(400).json({ error: 'Name and email are required' });
-    }
+    const { username, email } = req.body;
 
-    const stmt = db.prepare(`
+    db.prepare(`
         UPDATE users
-        SET username = ?, email = ?
+        SET username = COALESCE(?, username), email = COALESCE(?, email)
         WHERE id = ?
-    `);
+    `).run(username, email, id);
 
-    const result = stmt.run(req.body.username, req.body.email, id);
-
-    //how many rows were updated, if 0 then the user with the given id was not found
-    if (result.changes === 0) {
-        return res.status(404).json({ error: 'User not found' });
-    }
-    const updateUser = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
+    const updateUser = db.prepare('SELECT id, username, email, user_date FROM users WHERE id = ?').get(id);
     res.json(updateUser);
 });
 
@@ -83,10 +67,10 @@ router.delete('/:id', (req, res) => {
     const result = stmt.run(id);
     
     if (result.changes === 0) {
-        return res.status(404).json({ error: 'User not found' });
+        return res.status(404).json({ error: 'Användare hittades inte' });
     }
     
-    res.json(204).send();
+    res.sendStatus(204);
 });
 
 export default router;

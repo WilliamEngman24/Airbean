@@ -11,7 +11,7 @@ app.use(express.json());
 app.use("/api", apiRouter);
 
 app.get("/", (_req, res) =>{
-    res.json({ message: "Welcome to the API" });
+    res.json({ message: "Välkommen till grupp nr-6 API" });
 });
 
 app.listen(PORT, () => {

@@ -1,0 +1,23 @@
+{
+    "users": [
+        {
+        "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
+        "username": "old_user",
+        "email": "old@example.com",
+        "user_date": "2026-03-30T11:40:23.845Z"
+        },
+        {
+        "id": "b8c9d0e1-f2g3-h4i5-j6k7-l8m9n0o1p2q3",
+        "username": "John_Smith",
+        "email": "notai@example.com",
+        "user_date": "2026-03-30T11:40:23.845Z"
+        },
+        {
+        "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfa",
+        "username": "Jane_Doe",
+        "email": "maybeai@example.com",
+        "user_date": "2026-03-30T11:40:23.845Z"
+        }
+    ]
+
+}

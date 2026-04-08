@@ -1,21 +1,108 @@
-### GET /api/beans
+# Airbean API – Dokumentation
 
-[Vad endpointen gör]
+### GET /
+
+Välkomsttext
 
 **Svar:** `200 OK`
 
 ```json
-[exempelsvar]
+{
+    "message": "Välkommen till grupp nr-6 API"
+}
 ```
 
 ---
 
-### GET /api/beans/:id
+## Menu Routes
 
-[Vad endpointen gör]
+### GET /api/menu
+
+Hämtar hela kaffemenyn
 
 **Svar:** `200 OK`
+
+```json
+[
+  {
+    "id": "1",
+    "title": "Bryggkaffe",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 39
+  },
+  {
+    "id": "2",
+    "title": "Caffè Doppio",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 49
+  },
+  {
+    "id": "3",
+    "title": "Cappuccino",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 49
+  },
+  {
+    "id": "4",
+    "title": "Latte Macchiato",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 49
+  },
+  {
+    "id": "5",
+    "title": "Kaffe Latte",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 54
+  },
+  {
+    "id": "6",
+    "title": "Cortado",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 39
+  }
+]
+```
 **Fel:** `404 Not Found`
+```json
+{
+    "error": "Kaffemenyn hittades inte"
+}
+
+```
+**Fel:** `500 Internal Server Error`
+```json
+{
+    "error": "Ett oväntat fel uppstod"
+}
+```
+---
+
+### GET /api/menu/:id
+
+Hämtar ett specifikt meny id-nr
+
+**Svar:** `200 OK`
+```json
+{
+    "id": "5",
+    "title": "Kaffe Latte",
+    "desc": "Bryggd på månadens bönor.",
+    "price": 54
+}
+```
+
+**Fel:** `404 Not Found`
+```json
+{
+    "error": "Kaffesorten hittades inte"
+}
+```
+**Fel:** `500 Internal Server Error`
+```json
+{
+    "error": "Ett oväntat fel uppstod"
+}
+```
 
 ---
 
