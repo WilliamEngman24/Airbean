@@ -11,6 +11,7 @@ Systemet använder API-nycklel för att säkerställa att endast auktoriserade k
 - **Databas:** SQLite
 - **Ramverk:** Express
 - **Verktyg:** UUID.env
+- **Verktyg:** Nodemon
 
 ## Installation & start
 
