@@ -142,284 +142,43 @@ Hämtar ett specifikt meny id-nr
 **Fel:** `404 Not Found`
 
 
-## User Routes
-
-### GET /api/users
-
-Hämtar alla användare.
-
-**Svar:** `200 OK`
-
-```json
-[
-  {
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
-  "username": "old_user",
-  "email": "old@example.com",
-  "user_date": "2026-03-30T11:40:23.845Z"
-  },
-  {
-  "id": "b8c9d0e1-f2g3-h4i5-j6k7-l8m9n0o1p2q3",
-  "username": "John_Smith",
-  "email": "notai@example.com",
-  "user_date": "2026-03-30T11:40:23.845Z"
-  },
-  {
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfa",
-  "username": "Jane_Doe",
-  "email": "mightbeai@example.com",
-  "user_date": "2026-03-30T11:40:23.845Z"
-  }
-]
-```
-
-**Fel:** `500 Internal Server Error`
-
-```json
-{ "error": "Kunde inte hämta alla användare" }
-```
-
 ---
-
-### GET /api/users/:id
-
-Hämtar en specifik användare.
-
-**Svar:** `200 OK`
-
-```json
-{
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
-  "username": "John_Smith",
-  "email": "notanai@example.com",
-  "user_date": "2026-03-30T11:40:23.845Z"
-}
-```
-
-**Fel:** `404 Not Found`
-
-```json
-{ "error": "Kunde inte hämta denna användare" }
-```
-
----
-
-### POST /api/users
-
-Skapar en ny användare
-
-**Body:**
-
-```json
-{
-  "username": "new_person",
-  "email": "newemail@gmail.com"
-}
-```
-
-Alla fält är obligatoriska.
-
-**Svar:** `201 Created`
-
-```json
-{
-  "id": "468f758c-ab3e-4b2a-83d6-7214c79eb7a6",
-  "username": "new_person",
-  "email": "newemail@gmail.com",
-  "user_date": "2026-04-01T10:06:29.197Z"
-}
-```
-
-**Fel:** `400 Bad Request`
-
-```json
-{
-  "error": "Kunde inte skapa användare. Alla fält måste fyllas i."
-}
-```
-
----
-
-### PATCH /api/users/:id
-
-Uppdaterar användarinformation. Både username och email kan ändras separat eller på samma gång.
-
-**Sparad användare**
-
-```json
-{
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
-  "username": "old_user",
-  "email": "old@gmail.com",
-  "user_date": "2026-03-30T11:40:23.845Z"
-}
-```
-
-**Body:**
-
-```json
-{
-  "username": "updated_user"
-}
-```
-
-**Svar:** `200 OK`
-
-```json
-{
-  "id": "95205af1-646b-45f6-8bed-bcd0ee67bbfb",
-  "username": "updated_user",
-  "email": "old@gmail.com",
-  "user_date": "2026-03-30T11:40:23.845Z"
-}
-```
-
-**Fel:** 
-`404 Not Found`
-
-```json
-{ "error": "Kunde inte hämta denna användare" }
-```
-ELLER
-
-`400 Bad Request`
-
-```json
-{
-  "error": "Kunde inte skapa användare. Något fält måste fyllas i."
-}
-```
-
----
-
-### DELETE /api/users/:id
-
-Tar bort en användare. Om en användare tas bort, raderas också dess orders och kopplade order items.
-
-**Svar:** `204 No Content` (tom body)
-
-**Fel:** `404 Not Found`
-
-```json
-{
-  "error": "Användare hittades inte"
-}
-```
----
-## Middleware
-
-### API-nyckel requireApiKey.js
-
-**Header:**
-
-```json
-{
-  x-api-key: <din_nyckel>
-}
-```
-
-**Fel:** 
-`401 Unauthorized`
-
-```json
-{ "error": "Invalid API key" }
-```
-
-## validateOrder.js
 
 ### POST /api/orders
 
-Skapar en ny order och använder validateOrder middleware för att säkerställa att innehållet är korrekt och att produkterna finns i databasen.
+Skapar en ny beställning. Produkterna valideras i `validateOrder`-middleware innan ordern sparas.
 
 **Body:**
-
 ```json
 {
-  "user_id": "95205af1-646b-45f6-8bed-bcd0ee67bbfa",
+  "user_id": "user-123",
   "items": [
-    {
-      "product_id": "1",
-      "quantity": 1,
-      "price": 39
-    }
+    { "product_id": 1, "quantity": 2, "price": 39 }
   ]
 }
-```
 
-**Svar:** `201 Created`
-
-```json
-{
-  "message": "Order skapad",
-  "order_id": "dfa0096d-2c22-408d-88e2-bf596f235bf4",
-  "total_price": 39,
-  "eta": 17
-}
-```
-
-**Fel:** 
-`400 Bad Request`
-
-```json
-{ "error": "Request body saknas eller är i fel format" }
-
-{ "error": "user_id måste vara en sträng om det skickas med" }
-
-{ "error": "items måste finnas och vara en array" }
-
-{ "error": "En order måste innehålla minst en produkt" }
-
-{ "error": "Item på position ${i} måste vara ett objekt" }
-
-{ "error": "product_id på position ${i} måste vara en sträng" }
-
-{ "error": "quantity ${i} måste vara ett heltal större än 0" }
-
-{ "error": "Produkt med id ${item.product_id} finns inte i menyn" }
-
-{ "error": "Fel pris för produkt med id ${item.product_id}" }
-```
-
-**Fel:** 
-`500 Internal Server Error`
-
-```json
-{ "error": "Något gick fel i valideringen" }
-```
 ---
 
-## validateUser.js
+### GET /api/orders
 
-### GET /:id
+Hämtar alla ordrar.
 
-Hämta specifik användare
+Svar: 200 OK
 
-**Fel:** 
-`404 Internal Server Error`
+---
 
-```json
-{ "error": "Kunde inte hämta denna användare" }
-```
+### GET /api/orders/status/:id
 
-### POST
+Visar orderstatus och hur många minuter som är kvar tills leverans.
 
-Skapa användare 
+Svar: 200 OK
+Fel: 404 Not Found
 
-**Fel:** 
-`400 Bad Request`
+---
 
-```json
-{ "error": "Kunde inte skapa användare. Alla fält måste fyllas i." }
-```
+GET /api/orders/user/:userId
 
-### PUT /:id
+Hämtar orderhistorik för en användare.
 
-Uppdatera användare
-
-**Fel:** 
-`400 Bad Request`
-
-```json
-{ "error": "Kunde inte uppdatera användare. Något fält måste fyllas i." }
-```
-
+Svar: 200 OK
+---
