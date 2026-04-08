@@ -10,7 +10,7 @@ Systemet använder API-nycklel för att säkerställa att endast auktoriserade k
 - **Runtime:** Node.js
 - **Databas:** SQLite
 - **Ramverk:** Express
-- **Verktyg:** UUID.env
+- **Verktyg:** UUID
 - **Verktyg:** Nodemon
 - **Verktyg:** dotenv
 
