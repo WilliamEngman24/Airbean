@@ -12,7 +12,7 @@ export function calculateDiscount(cart) {
     let totalPostDiscount = totalPreDiscount;
     const discountTypes = [];
 
-    const latte = cart.find(item => item.id === 'c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66');
+    const latte = cart.find(item => item.product_id === 'c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66');
 
     //discount for 2 or more latte, 20kr off total price
     if (latte && latte.quantity >= 2) {
@@ -21,7 +21,7 @@ export function calculateDiscount(cart) {
     }
 
     //discount for buying the different latte types together
-    const latteCombo = new Set(cart.map(item => item.id));
+    const latteCombo = new Set(cart.map(item => item.product_id));
     if (latteCombo.has('c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66') && latteCombo.has('2f8a1d3c-5b7e-4e91-b2d6-8c3f1a9e7d55')){
         totalPostDiscount -= 15;
         discountTypes.push({ id: "6f2a9c1d-3b7e-4f22-a5d9-8c1e3b7a2d22",title: 'Latte Combo Discount', amount: 15 });
@@ -39,6 +39,8 @@ export function calculateDiscount(cart) {
 
     //if somhow total becomes minus then set to 0
     if(totalPostDiscount < 0) totalPostDiscount = 0;
+
+    console.log(discountTypes);
 
     return{
         totalPreDiscount,

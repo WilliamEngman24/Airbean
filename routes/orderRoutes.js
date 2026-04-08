@@ -100,21 +100,15 @@ router.post("/", validateOrder, (req, res) => {
         return res.status(400).json({ error: "Items saknas" });
     }
 
-    const cart = [];
-
-    for (const item of items) {
-        const product = db
-            .prepare("SELECT * FROM menu WHERE id = ?")
-            .get(item.product_id);
-
-        cart.push({
-            id: item.product_id,
-            name: product.title,
-            price: product.price,
-            category: product.category,
-            quantity: item.quantity
-        });
-    }
+    console.log(req.validatedItems);
+    const cart = req.validatedItems.map(item => ({
+        product_id: item.product_id,
+        name: item.title,
+        price: item.unit_price,
+        category: item.category,
+        quantity: item.quantity
+    }));
+    console.log(cart);
 
     const {totalPreDiscount, totalPostDiscount, discountAmount, discountTypes }
         = calculateDiscount(cart);
