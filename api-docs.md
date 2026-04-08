@@ -522,6 +522,58 @@ Se middleware POST /api/orders
 
 ## Middleware
 
+### API-nyckel requireApiKey.js
+
+**Body:**
+
+```json
+{
+  x-api-key: <din_nyckel>
+}
+```
+
+**Fel:** 
+`401 Unauthorized`
+
+```json
+{ "error": "Invalid API key" }
+```
+
+## validateUser.js
+
+### GET /:id
+
+Hämta specifik användare
+
+**Fel:** 
+`404 Internal Server Error`
+
+```json
+{ "error": "Kunde inte hämta denna användare" }
+```
+
+### POST
+
+Skapa användare 
+
+**Fel:** 
+`400 Bad Request`
+
+```json
+{ "error": "Kunde inte skapa användare. Alla fält måste fyllas i." }
+```
+
+### PUT /:id
+
+Uppdatera användare
+
+**Fel:** 
+`400 Bad Request`
+
+```json
+{ "error": "Kunde inte uppdatera användare. Något fält måste fyllas i." }
+```
+
 ### POST /api/orders
 
 Skapar en ny order och använder validateOrder middleware för att säkerställa att innehållet är korrekt och att produkterna finns i databasen.
