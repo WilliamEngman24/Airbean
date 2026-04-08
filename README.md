@@ -42,8 +42,15 @@ Servern startar på localhost:3000 (http://localhost:3000) (eller den port du an
 [API Dokumentation](api-docs.md)
 
 ## WebSocket-diskussion
+Ge användare en direkt ETA, statusupdateringar och live notiser för alla momenten av användarens order.
 
-Genom att uppkoppla drönare till internet genom wifi kan drönarens position updateras i realtid. Detta skulle kräva Websockets då dess kordinater bör anges konstant eller med en liten tidsinterval. Detta skapar en server/klient relation där drönarna blir klienterna som behöver uppkolpas till en server. 
+Dynamisk lagerhantering och en live meny. Om en användare beställer saker och sortimentet av en vara tar slut så får användare direkt information istället för att få en varning efter man gjort beställningen.
+
+Ge användare en köindikator, vilket underlättar beställning.
+
+Genom att uppkoppla drönare till internet genom wifi kan drönarens position updateras i realtid. Detta skulle kräva Websockets då dess kordinater bör anges konstant eller med en liten tidsinterval. Detta skapar en server/klient relation där drönarna blir klienterna som behöver uppkolpas till en server.
+
+Prestandan blir bättre då, med Websockets, skickar servern bara information när information uppdaterats och klinter skippar att skicka flera HTTP anrop.
 
 ## Gruppmedlemmar
 
