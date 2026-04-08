@@ -2,16 +2,22 @@ import { Router } from "express";
 import { v4 as uuidv4 } from "uuid";
 import db from "../data/db.js";
 import validateOrder from "../middleware/validateOrder.js";
+import validateID from "../middleware/validateID.js";
 import { calculateDiscount } from "../services/discountLogic.js";
 
 const router = Router();
 
 router.get("/", (_req, res) => {
     const orders = db.prepare("SELECT * FROM orders").all();
+
+    if (orders.length === 0) {
+        return res.status(500).json({ error: "Kunde inte hämta alla beställningar" });
+    }
+
     res.json(orders);
 });
 
-router.get("/status/:id", (req, res) => {
+router.get("/status/:id", validateID("id"),(req, res) => {
     const id = req.params.id;
 
     const order = db.prepare("SELECT * FROM orders WHERE id = ?").get(id);
@@ -41,17 +47,21 @@ router.get("/status/:id", (req, res) => {
     });
 });
 
-router.get("/user/:userId", (req, res) => {
+router.get("/user/:userId", validateID("userId"), (req, res) => {
     const userId = req.params.userId;
 
     const orders = db
         .prepare("SELECT * FROM orders WHERE user_id = ? ORDER BY order_date DESC")
         .all(userId);
 
+    if (orders.length === 0) {
+        return res.status(404).json({ error: "Inga beställningar hittade för denna användare" });
+    }
+
     res.json(orders);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", validateID("id"), (req, res) => {
     const id = req.params.id;
 
     const order = db.prepare("SELECT * FROM orders WHERE id = ?").get(id);
@@ -70,7 +80,16 @@ router.get("/:id", (req, res) => {
         WHERE order_items.order_id = ?
     `).all(id);
 
-    res.json({ order, items });
+    const discountItems = db.prepare(`
+        SELECT 
+            id,
+            order_id,
+            discount_id
+        FROM discount_items
+        WHERE discount_items.order_id = ?
+    `).all(id);
+
+    res.json({ order, items, discountItems });
 });
 
 router.post("/", validateOrder, (req, res) => {
@@ -89,8 +108,10 @@ router.post("/", validateOrder, (req, res) => {
             .get(item.product_id);
 
         cart.push({
+            id: item.product_id,
             name: product.title,
             price: product.price,
+            category: product.category,
             quantity: item.quantity
         });
     }
@@ -114,12 +135,22 @@ router.post("/", validateOrder, (req, res) => {
         VALUES (?, ?, ?, ?)
     `);
 
+    const insertDiscountItem = db.prepare(`
+        INSERT INTO discount_items (id, order_id, discount_id)
+        VALUES (?, ?, ?)
+    `);
+
     const createOrder = db.transaction(() => {
         insertOrder.run(orderId, user_id || null, totalPrice, eta, orderDate);
 
         for (const item of items) {
             insertOrderItem.run(uuidv4(), orderId, item.product_id, item.quantity);
         }
+
+        for (const discount of discountTypes) {
+            insertDiscountItem.run(uuidv4(), orderId, discount.id);
+        }
+
     });
 
     try {
@@ -131,12 +162,13 @@ router.post("/", validateOrder, (req, res) => {
             total_price: totalPrice,
             total_before_discount: totalPreDiscount,
             discount_amount: discountAmount,
-            discount_types: discountTypes,
             eta,
+            discount_types: discountTypes,
             all_items: cart
         });
     } catch (error) {
-        res.status(500).json({ error: "Kunde inte skapa order" });
+        console.error("Error creating order:", error);
+        res.status(400).json({ error: "Kunde inte skapa order" });
     }
 });
 

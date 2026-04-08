@@ -12,29 +12,29 @@ export function calculateDiscount(cart) {
     let totalPostDiscount = totalPreDiscount;
     const discountTypes = [];
 
-    const latte = cart.find(item => item.name === 'Kaffe Latte');
+    const latte = cart.find(item => item.id === 'c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66');
 
     //discount for 2 or more latte, 20kr off total price
     if (latte && latte.quantity >= 2) {
         totalPostDiscount -= 20;
-        discountTypes.push({ name: 'Two Latte Discount', amount: 20 });
+        discountTypes.push({ id: "1b7d3e9a-2c4f-4e33-9c8a-7f2b1d6e4a11", title: 'Two Latte Discount', amount: 20 });
     }
 
     //discount for buying the different latte types together
-    const latteCombo = new Set(cart.map(item => item.name));
-    if (latteCombo.has('Kaffe Latte') && latteCombo.has('Latte Macchiato')){
+    const latteCombo = new Set(cart.map(item => item.id));
+    if (latteCombo.has('c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66') && latteCombo.has('2f8a1d3c-5b7e-4e91-b2d6-8c3f1a9e7d55')){
         totalPostDiscount -= 15;
-        discountTypes.push({ name: 'Latte Combo Discount', amount: 15 });
+        discountTypes.push({ id: "6f2a9c1d-3b7e-4f22-a5d9-8c1e3b7a2d22",title: 'Latte Combo Discount', amount: 15 });
     }
 
-    //bun and coffee combo discount. can make more efficient if adding field to all menu items to have 'category'
-    const coffeeItems = new Set(['Bryggkaffe','Caffè Doppio','Cappuccino','Latte Macchiato','Kaffe Latte','Cortado']);
-    const hasBun = cart.some(item => item.name === 'Kanelbulle');
-    const hasCoffee = cart.some(item => coffeeItems.has(item.name));
+    //bun and coffee combo discount.
+    const hasBun = cart.find(item => item.category === 'bun');
+    const hasCoffee = cart.find(item => item.category === 'coffee');
 
     if (hasBun && hasCoffee){
+        console.log("bun and coffee");
         totalPostDiscount -= 20;
-        discountTypes.push({ name: 'Bun and Coffee Combo Discount', amount: 20 });
+        discountTypes.push({ id: "e3b1a7d9-5c2f-4a11-b9e3-6d7c2f1a8b33", title: 'Bun and Coffee Combo Discount', amount: 20 });
     }
 
     //if somhow total becomes minus then set to 0

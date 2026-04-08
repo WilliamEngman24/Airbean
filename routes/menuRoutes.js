@@ -1,6 +1,8 @@
 import { Router } from "express";
 import db from "../data/db.js";
 
+import validateID from "../middleware/validateID.js";
+
 const router = Router();
 
 // GET http://localhost:3000/api/menu-Hämta hela menyn
@@ -19,7 +21,7 @@ router.get("/", (req, res) => {
 });
 
 // GET /api/menu/:id-Hämta en specifik kaffesort
-router.get("/:id", (req, res) => {
+router.get("/:id", validateID("id"), (req, res) => {
   try {
     const id = req.params.id;
     const coffee = db.prepare("SELECT * FROM menu WHERE id = ?").get(id);

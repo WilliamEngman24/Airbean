@@ -1,45 +1,52 @@
 {
   "menu":[
     {
-      "id":"1",
+      "id":"a3f1c9d2-7b4e-4a91-9c3e-2d8f6b5a1e77",
       "title":"Bryggkaffe",
       "desc":"Bryggd på månadens bönor.",
+      "category":"coffee",
       "price":39
     },
     {
-      "id":"2",
+      "id":"5d2a7f8c-1b3e-4c6a-8f92-0e4d9a7c3b11",
       "title":"Caffè Doppio",
       "desc":"Bryggd på månadens bönor.",
+      "category":"coffee",
       "price":49
     },
     {
-      "id":"3",
+      "id":"9b7e2c1d-6f3a-4d88-a1c5-3e9f7b2a6c44",
       "title":"Cappuccino",
       "desc":"Bryggd på månadens bönor.",
+      "category":"coffee",
       "price":49
     },
     {
-      "id":"4",
+      "id":"2f8a1d3c-5b7e-4e91-b2d6-8c3f1a9e7d55",
       "title":"Latte Macchiato",
       "desc":"Bryggd på månadens bönor.",
+      "category":"coffee",
       "price":49
     },
     {
-      "id":"5",
+      "id":"c1a9e7b3-4d2f-4f88-9e6a-1b3c5d7f2a66",
       "title":"Kaffe Latte",
       "desc":"Bryggd på månadens bönor.",
+      "category":"coffee",
       "price":54
     },
     {
-      "id":"6",
+      "id":"7e3b2c1a-9d4f-4a77-b8c1-6f2e3d9a5b77",
       "title":"Cortado",
       "desc":"Bryggd på månadens bönor.",
+      "category":"coffee",
       "price":39
     },
     {
-      "id":"7",
+      "id":"4c9a2f7d-1e3b-4b66-a9d2-5f7c3e1a8b88",
       "title":"Kanelbulle",
       "desc":"Ja, det är en bulle helt enkelt.",
+      "category":"bun",
       "price":25
     }
   ]
