@@ -56,7 +56,7 @@ const validateOrder = async (req, res, next) => {
 
       // ÄNDRAD: better-sqlite3 använder prepare().get()
       const product = db
-        .prepare('SELECT id, title, price FROM menu WHERE id = ?')
+        .prepare('SELECT id, title, category, price FROM menu WHERE id = ?')
         .get(item.product_id);
 
       if (!product) {
@@ -75,6 +75,7 @@ const validateOrder = async (req, res, next) => {
         product_id: product.id,
         title: product.title,
         quantity: item.quantity,
+        category: product.category,
         unit_price: product.price
       });
     }

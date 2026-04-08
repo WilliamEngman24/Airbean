@@ -1,9 +1,10 @@
 import Database from "better-sqlite3";
 import fs from "fs";
 
-const db = new Database("./data/airbean.db");
-//test
+const db = new Database(process.env.DB_PATH);
+
 db.exec(`
+  
   CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,
   username TEXT NOT NULL,
@@ -15,16 +16,17 @@ db.exec(`
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
   desc TEXT,
+  category TEXT,
   price REAL NOT NULL
   );
 
   CREATE TABLE IF NOT EXISTS orders (
   id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
+  user_id TEXT,
   total_price REAL NOT NULL,
-  ETA TEXT,
+  ETA REAL NOT NULL,
   order_date TEXT,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
   );
 
   CREATE TABLE IF NOT EXISTS order_items (
@@ -32,9 +34,24 @@ db.exec(`
   order_id TEXT NOT NULL,
   product_id TEXT NOT NULL,
   quantity INTEGER NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders(id),
-  FOREIGN KEY (product_id) REFERENCES menu(id)
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE, 
+  FOREIGN KEY (product_id) REFERENCES menu(id) ON DELETE CASCADE
   );
+
+  CREATE TABLE IF NOT EXISTS discounts (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  amount REAL NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS discount_items (
+  id TEXT PRIMARY KEY,
+  order_id TEXT NOT NULL,
+  discount_id TEXT NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+  FOREIGN KEY (discount_id) REFERENCES discounts(id) ON DELETE CASCADE
+  );
+
   `);
 
 //------ Menu data ------
@@ -44,7 +61,7 @@ const { menu } = JSON.parse(fs.readFileSync("./data/menu.json", "utf-8"));
 
 //prapare statement
 const insertMenu = db.prepare(`
-    INSERT INTO menu (id, title, desc, price) VALUES (?, ?, ?, ?)
+    INSERT INTO menu (id, title, desc, category, price) VALUES (?, ?, ?, ?, ?)
   `);
 
 //check if menu is empty or not
@@ -55,7 +72,7 @@ const menuCheck = db.prepare("SELECT COUNT(*) AS count FROM menu").get();
 if (menuCheck.count === 0) {
   const insertAllMenu = db.transaction((items) => {
     items.forEach((item) =>
-      insertMenu.run(item.id, item.title, item.desc, item.price),
+      insertMenu.run(item.id, item.title, item.desc, item.category, item.price),
     );
   });
   insertAllMenu(menu);
@@ -131,6 +148,46 @@ if (orderItemsCheck.count === 0) {
     );
   });
   insertAllOrderItems(order_items);
+}
+
+//------ Discounts data ---------
+const { discounts } = JSON.parse(
+  fs.readFileSync("./data/discounts.json", "utf-8"),
+);
+
+const insertDiscounts = db.prepare(`
+  INSERT INTO discounts (id, title, amount) VALUES (?, ?, ?)
+`);
+
+const discountCheck = db.prepare("SELECT COUNT(*) AS count FROM discounts").get();
+
+if (discountCheck.count === 0) {
+  const insertAllDiscounts = db.transaction((items) => {
+    items.forEach((item) =>
+      insertDiscounts.run(item.id, item.title, item.amount),
+    );
+  });
+  insertAllDiscounts(discounts);
+}
+
+//------ Discounts items data ---------
+const { discount_items } = JSON.parse(
+  fs.readFileSync("./data/discount_items.json", "utf-8"),
+);
+
+const insertDiscountItems = db.prepare(`
+  INSERT INTO discount_items (id, order_id, discount_id) VALUES (?, ?, ?)
+`);
+
+const discountItemsCheck = db.prepare("SELECT COUNT(*) AS count FROM discount_items").get();
+
+if (discountItemsCheck.count === 0) {
+  const insertAllDiscountItems = db.transaction((items) => {
+    items.forEach((item) =>
+      insertDiscountItems.run(item.id, item.order_id, item.discount_id),
+    );
+  });
+  insertAllDiscountItems(discount_items);
 }
 
 export default db;
