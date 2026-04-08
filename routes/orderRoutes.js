@@ -93,9 +93,10 @@ router.get("/:id", validateID("id"), (req, res) => {
 });
 
 router.post("/", validateOrder, (req, res) => {
-    const { user_id, items } = req.body;
+    const { user_id } = req.body;
+    const items = req.validatedItems;
 
-    if (!items || !Array.isArray(items) || items.length === 0) {
+    if (!items || items.length === 0) {
         return res.status(400).json({ error: "Items saknas" });
     }
 
@@ -172,3 +173,4 @@ router.post("/", validateOrder, (req, res) => {
 });
 
 export default router;
+
