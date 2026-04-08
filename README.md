@@ -12,6 +12,7 @@ Systemet använder API-nycklel för att säkerställa att endast auktoriserade k
 - **Ramverk:** Express
 - **Verktyg:** UUID.env
 - **Verktyg:** Nodemon
+- **Verktyg:** dotenv
 
 ## Installation & start
 
@@ -32,7 +33,7 @@ cp .env.example .env
 ```
 ## Starta servern
 ```bash
-node server.js
+npm run dev
 
 Servern startar på localhost:3000 (http://localhost:3000) (eller den port du angett i `.env`).
 ```
